@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import Event from "@/types/Event";
-import { Trash2 } from "lucide-react"
+import { Trash2 } from "lucide-react";
 
 interface DeleteEventModalProps {
   event: Event;
@@ -25,11 +25,11 @@ export function DeleteEventModal({ event, onDelete }: DeleteEventModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="outline" className="bg-slate-300 rounded-full" size="icon">
           <Trash2 className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-slate-100">
         <DialogHeader>
           <DialogTitle>Delete Event</DialogTitle>
           <DialogDescription>
@@ -41,7 +41,7 @@ export function DeleteEventModal({ event, onDelete }: DeleteEventModalProps) {
             <Button variant="outline">Cancel</Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button variant="destructive" onClick={handleDelete}>
+            <Button variant="destructive" className="bg-red-500" onClick={handleDelete}>
               Delete
             </Button>
           </DialogClose>
