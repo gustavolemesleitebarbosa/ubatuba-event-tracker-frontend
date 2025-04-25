@@ -13,6 +13,8 @@ import { Label } from "@/components/ui/label"
 import { Plus, Upload } from "lucide-react"
 import Event from "@/types/Event"
 import { useState, useRef } from "react"
+import { createEventSchema } from "@/schemas/event.schema"
+import { z } from "zod"
 
 interface CreateEventModalProps {
   onCreate: (newEvent: Omit<Event, 'id'>) => void;
@@ -26,9 +28,29 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
     date: new Date().toISOString().slice(0, 16),
     image: ''
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const validateForm = () => {
+    try {
+      createEventSchema.parse(formData);
+      setErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -44,16 +66,19 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
   };
 
   const handleCreate = () => {
-    onCreate(formData);
-    setFormData({
-      title: '',
-      description: '',
-      location: '',
-      date: new Date().toISOString().slice(0, 16),
-      image: ''
-    });
-    setSelectedImage(null);
-    setPreviewUrl('');
+    if (validateForm()) {
+      onCreate(formData);
+      setFormData({
+        title: '',
+        description: '',
+        location: '',
+        date: new Date().toISOString().slice(0, 16),
+        image: ''
+      });
+      setSelectedImage(null);
+      setPreviewUrl('');
+      setErrors({});
+    }
   };
 
   return (
@@ -75,7 +100,9 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
               id="title" 
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
+              className={errors.title ? "border-red-500" : ""}
             />
+            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="description">Description</Label>
@@ -83,7 +110,9 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
               id="description" 
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
+              className={errors.description ? "border-red-500" : ""}
             />
+            {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="location">Location</Label>
@@ -91,7 +120,9 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
               id="location" 
               value={formData.location}
               onChange={(e) => setFormData({...formData, location: e.target.value})}
+              className={errors.location ? "border-red-500" : ""}
             />
+            {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
@@ -100,7 +131,9 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
               type="datetime-local" 
               value={formData.date}
               onChange={(e) => setFormData({...formData, date: e.target.value})}
+              className={errors.date ? "border-red-500" : ""}
             />
+            {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="image">Event Image</Label>
@@ -135,9 +168,7 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <DialogClose asChild>
-            <Button onClick={handleCreate}>Create</Button>
-          </DialogClose>
+          <Button onClick={handleCreate}>Create</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
