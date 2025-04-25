@@ -21,12 +21,14 @@ specifiers:
   postcss: ^8.4.35
   react: ^19.0.0
   react-dom: ^19.0.0
+  react-hot-toast: ^2.5.2
   tailwind-merge: ^3.2.0
   tailwindcss: ^3.4.1
   tw-animate-css: ^1.2.8
   typescript: ~5.7.2
   typescript-eslint: ^8.26.1
   vite: ^6.3.1
+  zod: ^3.24.3
 
 dependencies:
   '@radix-ui/react-dialog': 1.1.11_5j5q5giq4a6q5rwe55huzqxn5e
@@ -40,8 +42,10 @@ dependencies:
   postcss: 8.5.3
   react: 19.1.0
   react-dom: 19.1.0_react@19.1.0
+  react-hot-toast: 2.5.2_j6k6oay3ugsr56slyfvma2drry
   tailwind-merge: 3.2.0
   tailwindcss: 3.4.17
+  zod: 3.24.3
 
 devDependencies:
   '@eslint/js': 9.25.1
@@ -1950,6 +1954,14 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
+  /goober/2.1.16_csstype@3.1.3:
+    resolution: {integrity: sha512-erjk19y1U33+XAMe1VTvIONHYoSqE4iS7BYUZfHaqeohLmnC0FdxEh7rQU+6MZ4OajItzjZFSRtVANrQwNq6/g==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dependencies:
+      csstype: 3.1.3
+    dev: false
+
   /graceful-fs/4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
     dev: false
@@ -2479,6 +2491,19 @@ packages:
       scheduler: 0.26.0
     dev: false
 
+  /react-hot-toast/2.5.2_j6k6oay3ugsr56slyfvma2drry:
+    resolution: {integrity: sha512-Tun3BbCxzmXXM7C+NI4qiv6lT0uwGh4oAfeJyNOjYUejTsm35mK9iCaYLGv8cBz9L5YxZLx/2ii7zsIwPtPUdw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      csstype: 3.1.3
+      goober: 2.1.16_csstype@3.1.3
+      react: 19.1.0
+      react-dom: 19.1.0_react@19.1.0
+    dev: false
+
   /react-refresh/0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
@@ -2971,3 +2996,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.24.3:
+    resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
+    dev: false
