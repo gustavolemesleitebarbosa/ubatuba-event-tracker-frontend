@@ -156,7 +156,7 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
           <div className="grid gap-2">
             <Label htmlFor="category">Category</Label>
             <Select 
-              value={formData.category} 
+              value={formData.category || undefined} 
               onValueChange={(value) => setFormData({...formData, category: value})}
             >
               <SelectTrigger className={errors.category ? "border-red-500" : ""}>
@@ -164,7 +164,7 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
               </SelectTrigger>
               <SelectContent>
                 {EVENT_CATEGORIES.map((category) => (
-                  <SelectItem  className="bg-slate-100 border-slate-300 border-b-[1px]" key={category} value={category}>
+                  <SelectItem className="bg-slate-100 border-slate-300 border-b-[1px]" key={category} value={category}>
                     {category}
                   </SelectItem>
                 ))}

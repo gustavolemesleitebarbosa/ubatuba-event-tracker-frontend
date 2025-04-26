@@ -5,7 +5,7 @@ interface Event {
   description: string;
   location: string;
   date: string;
-  category?: string | null;
+  category?: string | null | undefined;
   image?: string;
 }
 

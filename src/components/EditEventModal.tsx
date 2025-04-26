@@ -109,7 +109,7 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
           <div className="grid gap-2">
             <Label htmlFor="category">Category</Label>
             <Select 
-              value={formData.category} 
+              value={formData.category || undefined} 
               onValueChange={(value) => setFormData({...formData, category: value})}
             >
               <SelectTrigger className={errors.category ? "border-red-500" : ""}>
