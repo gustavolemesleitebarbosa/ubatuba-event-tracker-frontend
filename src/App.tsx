@@ -7,6 +7,7 @@ import { EditEventModal } from "./components/EditEventModal";
 import Event from "./types/Event";
 import { CreateEventModal } from "./components/CreateEventModal";
 import toast, { Toaster } from "react-hot-toast";
+
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
@@ -76,39 +77,50 @@ function App() {
   return (
     <>
       <Toaster />
-      <div className="h-full w-full bg-blue-300 p-12">
+      <div className="min-h-screen w-full bg-[#28646A] p-12">
         <h1
-          style={{ fontFamily: "'Baloo 2', sans-serif" }}
-          className="text-2xl font-bold mb-4 mt-2"
+          style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800 }}
+          className="text-3xl font-bold mb-4 mt-2 text-yellow-50"
         >
           Próximos Eventos em Ubatuba{" "}
         </h1>
-        <div className="h-screen w-full container mx-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full container mx-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CreateEventModal onCreate={handleCreate} />
           {events.map((event, index) => (
             <Card
               key={index}
-              className="min-h-80 bg-slate-100 overflow-hidden pt-0"
+              className="min-h-80 relative bg-slate-300 overflow-hidden pt-0 ƒ"
             >
               <div className="w-full">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-24 lg:h-44 object-cover"
-                />
+                {event.image ? (
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-24 lg:h-44 object-cover"
+                  />
+                ) : (
+                  <img
+                    src="/src/assets/placeholder.png"
+                    alt="Event placeholder"
+                    className="w-full h-24 lg:h-44"
+                  />
+                )}
                 <div className="bg-black w-full h-[1.5px]"></div>
               </div>
               <CardHeader>
-                <CardTitle className="font-bold">{event.title}</CardTitle>
-                {/* <CardDescription className="text-gray-600">
-                {new Date(event.date).toLocaleDateString()}
-              </CardDescription> */}
+                <CardTitle className="font-bold">
+                  {event.title}
+                  <br />
+                  {new Date(event.date).toLocaleDateString("pt-BR")}
+                </CardTitle>
               </CardHeader>
               <CardContent className="text-gray-800 flex flex-col items-start">
-                <p>{event.description}</p>
                 <p className="mt-2 text-sm text-gray-600">
                   {" "}
                   Local: <b>{event.location}</b>{" "}
+                </p>
+                <p className="text-sm text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full">
+                  {event.description}
                 </p>
                 <div className="w-full justify-end mt-3 ml-auto flex gap-3">
                   <EditEventModal event={event} onSave={handleEdit} />
