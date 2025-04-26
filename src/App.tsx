@@ -77,12 +77,12 @@ function App() {
   return (
     <>
       <Toaster />
-      <div className="min-h-screen w-full bg-[#28646A] p-12">
+      <div className="min-h-screen w-full bg-[##234683] p-12">
         <h1
-          style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800 }}
+          style={{ fontFamily: "'Original Surfer', cursive", fontWeight: 900 }}
           className="text-3xl font-bold mb-4 mt-2 text-yellow-50"
         >
-          Próximos Eventos em Ubatuba{" "}
+         🌊 Próximos Eventos em Ubatuba{" "}🌊
         </h1>
         <div className="w-full container mx-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CreateEventModal onCreate={handleCreate} />
