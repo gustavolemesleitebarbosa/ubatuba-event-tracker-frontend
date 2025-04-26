@@ -15,6 +15,8 @@ import Event from "@/types/Event"
 import { useState, useEffect } from "react"
 import { createEventSchema } from "@/schemas/event.schema"
 import { z } from "zod"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
+import { EVENT_CATEGORIES } from "@/constants/categories"
 
 interface EditEventModalProps {
   event: Event;
@@ -25,6 +27,12 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
   const [formData, setFormData] = useState(event);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isValid, setIsValid] = useState(true);
+
+  const resetForm = () => {
+    setFormData(event);
+    setErrors({});
+    setIsValid(true);
+  };
 
   useEffect(() => {
     try {
@@ -52,13 +60,18 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="bg-slate-100 rounded-full" size="icon">
+    <Dialog onOpenChange={(open) => !open && resetForm()}>
+      <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
+        <Button 
+          variant="outline" 
+          className="bg-slate-100 rounded-full" 
+          size="icon"
+          onClick={(e) => e.stopPropagation()}
+        >
           <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
+      <DialogContent onClick={(e) => e.stopPropagation()} className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Edit Event</DialogTitle>
         </DialogHeader>
@@ -94,6 +107,25 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
             {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
           </div>
           <div className="grid gap-2">
+            <Label htmlFor="category">Category</Label>
+            <Select 
+              value={formData.category} 
+              onValueChange={(value) => setFormData({...formData, category: value})}
+            >
+              <SelectTrigger className={errors.category ? "border-red-500" : ""}>
+                <span>{formData.category || "Select a category"}</span>
+              </SelectTrigger>
+              <SelectContent>
+                {EVENT_CATEGORIES.map((category) => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
+          </div>
+          <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
             <Input 
               id="date" 
@@ -109,12 +141,7 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button 
-            onClick={handleSave}
-            disabled={!isValid}
-          >
-            Save changes
-          </Button>
+          <Button onClick={handleSave}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

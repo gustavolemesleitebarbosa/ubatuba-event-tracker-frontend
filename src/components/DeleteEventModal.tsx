@@ -18,18 +18,19 @@ interface DeleteEventModalProps {
 }
 
 export function DeleteEventModal({ event, onDelete }: DeleteEventModalProps) {
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     onDelete();
   };
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="bg-slate-100 rounded-full" size="icon">
+      <DialogTrigger onClick={(e) => e.stopPropagation()}  asChild>
+        <Button variant="outline"className="bg-slate-100 rounded-full" size="icon">
           <Trash2 className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
+      <DialogContent  onClick={(e) => e.stopPropagation()} className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Delete Event</DialogTitle>
           <DialogDescription>

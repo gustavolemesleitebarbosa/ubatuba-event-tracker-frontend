@@ -7,8 +7,8 @@ import Event from "../types/Event";
 import { CreateEventModal } from "../components/CreateEventModal";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "../components/ui/input";
-import { Link } from "react-router-dom";
-import { MagnifyingGlass, ThreeCircles } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
+import { ThreeCircles } from "react-loader-spinner";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -17,6 +17,8 @@ function Home() {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
   const fetchEvents = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}`);
@@ -91,7 +93,9 @@ function Home() {
   if (loading)
     return (
       <div className="flex flex-col justify-center items-center h-screen w-full">
-        <h1 className="text-yellow-50 text-2xl mb-6 font-bold">Carregando eventos em Ubatuba!</h1>
+        <h1 className="text-yellow-50 text-2xl mb-6 font-bold">
+          Carregando eventos em Ubatuba!
+        </h1>
         <ThreeCircles
           visible={true}
           height="100"
@@ -103,10 +107,21 @@ function Home() {
         />
       </div>
     );
+
   if (error)
     return (
       <div className="flex justify-center items-center h-screen w-full">
         <h1 className="text-yellow-50 text-2xl font-bold">Error: {error}</h1>
+      </div>
+    );
+
+  if (events.length === 0)
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <h1 className="text-yellow-50 text-2xl font-bold">
+          {" "}
+          Nenhum evento encontrado para
+        </h1>
       </div>
     );
 
@@ -137,52 +152,63 @@ function Home() {
         </div>
         <div className="w-full container md:mx-4 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CreateEventModal onCreate={handleCreate} />
-          {filteredEvents.map((event, index) => (
-            <Link to={`/event/${event.id}`} key={index}>
-              <Card className="min-h-80 relative bg-slate-300 overflow-hidden pt-0">
-                <div className="w-full">
-                  {event.image ? (
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-24 lg:h-44 object-cover"
-                    />
-                  ) : (
-                    <img
-                      src="/src/assets/placeholder.png"
-                      alt="Event placeholder"
-                      className="w-full h-24 lg:h-44"
-                    />
-                  )}
-                  <div className="bg-black w-full h-[1.5px]"></div>
+          {filteredEvents.map((event) => (
+            <Card
+              key={event.id}
+              onClick={() => navigate(`/event/${event.id}`)}
+              className="min-h-80 relative bg-slate-300 overflow-hidden pt-0"
+            >
+              <div className="w-full">
+                {event.image ? (
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-24 lg:h-44 object-cover"
+                  />
+                ) : (
+                  <img
+                    src="/src/assets/placeholder.png"
+                    alt="Event placeholder"
+                    className="w-full h-24 lg:h-44"
+                  />
+                )}
+                <div className="bg-black w-full h-[1.5px]"></div>
+              </div>
+              <CardHeader>
+                <CardTitle className="font-bold">
+                  {event.title}
+                  {event.category}
+                  <br />
+                  {new Date(event.date).toLocaleDateString("pt-BR")}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-gray-800 flex flex-col items-start">
+                <p className="mt-2 text-sm text-gray-600">
+                  {" "}
+                  Local: <b>{event.location}</b>{" "}
+                </p>
+                <p className="text-sm text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full">
+                  {event.description}
+                </p>
+                <div className="w-full justify-end mt-3 ml-auto flex gap-3">
+                  <EditEventModal event={event} onSave={handleEdit} />
+                  <DeleteEventModal
+                    event={event}
+                    onDelete={() => handleDelete(event)}
+                  />
                 </div>
-                <CardHeader>
-                  <CardTitle className="font-bold">
-                    {event.title}
-                    <br />
-                    {new Date(event.date).toLocaleDateString("pt-BR")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-gray-800 flex flex-col items-start">
-                  <p className="mt-2 text-sm text-gray-600">
-                    {" "}
-                    Local: <b>{event.location}</b>{" "}
-                  </p>
-                  <p className="text-sm text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full">
-                    {event.description}
-                  </p>
-                  <div className="w-full justify-end mt-3 ml-auto flex gap-3">
-                    <EditEventModal event={event} onSave={handleEdit} />
-                    <DeleteEventModal
-                      event={event}
-                      onDelete={() => handleDelete(event)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+              </CardContent>
+            </Card>
           ))}
         </div>
+        {filteredEvents.length === 0 && (
+          <div className="flex justify-center items-center w-full">
+            <h1 className="text-yellow-50 text-2xl font-bold">
+              {" "}
+              Nenhum evento encontrado para esta busca 😢
+            </h1>
+          </div>
+        )}
       </div>
     </>
   );
