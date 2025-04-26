@@ -118,9 +118,7 @@ function EventDetail() {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">Description</h2>
-            <p className="text-gray-700 whitespace-pre-wrap">
-              {event.description}
-            </p>
+            <p className="text-gray-700 break-words">{event.description}</p>
           </div>
         </CardContent>
       </Card>
