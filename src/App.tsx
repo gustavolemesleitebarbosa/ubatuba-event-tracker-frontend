@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Search } from "lucide-react";
 
 import "./App.css";
 import { DeleteEventModal } from "./components/DeleteEventModal";
@@ -7,12 +8,13 @@ import { EditEventModal } from "./components/EditEventModal";
 import Event from "./types/Event";
 import { CreateEventModal } from "./components/CreateEventModal";
 import toast, { Toaster } from "react-hot-toast";
+import { Input } from "./components/ui/input";
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const searchRef = useRef<HTMLInputElement>(null);
   const fetchEvents = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}`);
@@ -82,8 +84,18 @@ function App() {
           style={{ fontFamily: "'Original Surfer', cursive", fontWeight: 900 }}
           className="text-3xl font-bold mb-4 mt-2 text-yellow-50"
         >
-         🌊 Próximos Eventos em Ubatuba{" "}🌊
+          🌊 Próximos Eventos em Ubatuba 🌊
         </h1>
+        <div className="px-6 lg:px-11">
+          <div className="relative">
+            <Search onClick={()=> searchRef.current?.focus()} className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+            <Input
+              ref={searchRef}
+              placeholder="Pesquisar Evento"
+              className="bg-slate-100 font-bold mb-4 mt-2 text-slate-900 pl-10"
+            />
+          </div>
+        </div>
         <div className="w-full container mx-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CreateEventModal onCreate={handleCreate} />
           {events.map((event, index) => (
