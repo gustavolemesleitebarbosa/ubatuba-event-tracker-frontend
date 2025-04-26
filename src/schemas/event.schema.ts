@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { EVENT_CATEGORIES } from "@/constants/categories";
 
 export const createEventSchema = z.object({
   title: z.string()
@@ -12,6 +13,7 @@ export const createEventSchema = z.object({
   date: z.string()
     .min(1, { message: "Date is required" }),
   image: z.string().optional(),
+  category: z.enum(EVENT_CATEGORIES).nullable().optional()
 });
 
 export type CreateEventInput = z.infer<typeof createEventSchema>; 

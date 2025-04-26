@@ -15,6 +15,8 @@ import Event from "@/types/Event"
 import { useState, useRef } from "react"
 import { createEventSchema } from "@/schemas/event.schema"
 import { z } from "zod"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
+import { EVENT_CATEGORIES } from "@/constants/categories"
 
 interface CreateEventModalProps {
   onCreate: (newEvent: Omit<Event, 'id'>) => void;
@@ -26,12 +28,28 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
     description: '',
     location: '',
     date: new Date().toISOString().slice(0, 16),
-    image: ''
+    image: '',
+    category: null
   });
+  
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const resetForm = () => {
+    setFormData({
+      title: '',
+      description: '',
+      location: '',
+      date: new Date().toISOString().slice(0, 16),
+      image: '',
+      category: null
+    });
+    setSelectedImage(null);
+    setPreviewUrl('');
+    setErrors({});
+  };
 
   const validateForm = () => {
     try {
@@ -73,7 +91,8 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
         description: '',
         location: '',
         date: new Date().toISOString().slice(0, 16),
-        image: ''
+        image: '',
+        category: null
       });
       setSelectedImage(null);
       setPreviewUrl('');
@@ -82,11 +101,10 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
   };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={(open) => !open && resetForm()}>
       <DialogTrigger asChild>
-        <Button className="fixed top-4 z-20 right-4 bg-slate-300 rounded-full" variant="outline" size="lg">
-          <Plus className="h-4 w-4" />
-          Create Event
+       <Button className="fixed top-4 z-20 right-4 bg-slate-300 rounded-full" variant="outline" size="lg">          <Plus className="mr-2 h-4 w-4" />
+          Add Event
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
@@ -134,6 +152,25 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
               className={errors.date ? "border-red-500" : ""}
             />
             {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="category">Category</Label>
+            <Select 
+              value={formData.category} 
+              onValueChange={(value) => setFormData({...formData, category: value})}
+            >
+              <SelectTrigger className={errors.category ? "border-red-500" : ""}>
+                <span>{formData.category || "Select a category"}</span>
+              </SelectTrigger>
+              <SelectContent>
+                {EVENT_CATEGORIES.map((category) => (
+                  <SelectItem  className="bg-slate-100 border-slate-300 border-b-[1px]" key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="image">Event Image</Label>

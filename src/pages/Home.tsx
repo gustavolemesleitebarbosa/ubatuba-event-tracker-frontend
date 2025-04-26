@@ -9,6 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Input } from "../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
+import { CategoryColors, EventCategory } from "@/constants/categories";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -177,7 +178,12 @@ function Home() {
               <CardHeader>
                 <CardTitle className="font-bold">
                   {event.title}
-                  {event.category}
+                  {event.category && (
+                    <span className={`ml-4 px-3 py-1 text-sm rounded-full text-white ${CategoryColors[event.category as EventCategory]}`}>
+                      {event.category}
+                    </span>
+                  )}
+                  <br />
                   <br />
                   {new Date(event.date).toLocaleDateString("pt-BR")}
                 </CardTitle>

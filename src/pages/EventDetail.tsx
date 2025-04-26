@@ -4,7 +4,8 @@ import { Event } from "../schemas/event.schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { MagnifyingGlass, ThreeCircles } from "react-loader-spinner";
+import {  ThreeCircles } from "react-loader-spinner";
+import { CategoryColors, EventCategory } from "@/constants/categories";
 
 function EventDetail() {
   const { id } = useParams();
@@ -95,9 +96,16 @@ function EventDetail() {
         </div>
 
         <CardHeader>
-          <CardTitle className="text-2xl md:text-4xl font-bold">
-            {event.title}
-          </CardTitle>
+          <div className="flex items-center gap-4">
+            <CardTitle className="text-2xl md:text-4xl font-bold">
+              {event.title}
+            </CardTitle>
+            {event.category && (
+              <span className={`px-4 py-1.5 text-lg rounded-full text-white ${CategoryColors[event.category as EventCategory]}`}>
+                {event.category}
+              </span>
+            )}
+          </div>
           <p className="text-lg font-semibold text-gray-700">
             {new Date(event.date).toLocaleDateString("pt-BR", {
               weekday: "long",

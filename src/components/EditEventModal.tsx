@@ -117,7 +117,7 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
               </SelectTrigger>
               <SelectContent>
                 {EVENT_CATEGORIES.map((category) => (
-                  <SelectItem key={category} value={category}>
+                  <SelectItem className="bg-slate-100 border-slate-300 border-b-[1px]" key={category} value={category}>
                     {category}
                   </SelectItem>
                 ))}

@@ -5,7 +5,8 @@ interface Event {
   description: string;
   location: string;
   date: string;
-  image: string;
+  category?: string | null;
+  image?: string;
 }
 
 export default Event;
