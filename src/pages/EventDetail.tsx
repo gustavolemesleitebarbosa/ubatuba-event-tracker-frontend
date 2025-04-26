@@ -4,6 +4,7 @@ import { Event } from "../schemas/event.schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { MagnifyingGlass, ThreeCircles } from "react-loader-spinner";
 
 function EventDetail() {
   const { id } = useParams();
@@ -32,15 +33,43 @@ function EventDetail() {
     }
   }, [id]);
 
-  if (loading) return <div className="min-h-screen w-full p-12">Loading event...</div>;
-  if (error) return <div className="min-h-screen w-full p-12">Error: {error}</div>;
-  if (!event) return <div className="min-h-screen w-full p-12">Event not found</div>;
+  if (loading)
+    return (
+      <div className="flex flex-col justify-center items-center h-screen w-full">
+        <h1 className="text-yellow-50 text-2xl font-bold mb-6">
+          Carregando evento!
+        </h1>
+        <ThreeCircles
+          visible={true}
+          height="100"
+          width="100"
+          color="#06f3bc"
+          ariaLabel="three-circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <h1 className="text-yellow-50 text-2xl font-bold">Erro: {error}</h1>
+      </div>
+    );
+  if (!event)
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <h1 className="text-yellow-50 text-2xl font-bold">
+          Evento não encontrado
+        </h1>
+      </div>
+    );
 
   return (
     <div className="min-h-screen w-full bg-[#234683] p-6 md:p-12">
-      <Button 
-        onClick={() => navigate('/')}
-        variant="outline" 
+      <Button
+        onClick={() => navigate("/")}
+        variant="outline"
         className="mb-6 bg-slate-100"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
@@ -71,12 +100,12 @@ function EventDetail() {
           </CardTitle>
           <p className="text-lg font-semibold text-gray-700">
             {new Date(event.date).toLocaleDateString("pt-BR", {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
             })}
           </p>
         </CardHeader>
@@ -89,7 +118,9 @@ function EventDetail() {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">Description</h2>
-            <p className="text-gray-700 whitespace-pre-wrap">{event.description}</p>
+            <p className="text-gray-700 whitespace-pre-wrap">
+              {event.description}
+            </p>
           </div>
         </CardContent>
       </Card>

@@ -8,6 +8,7 @@ import { CreateEventModal } from "../components/CreateEventModal";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "../components/ui/input";
 import { Link } from "react-router-dom";
+import { MagnifyingGlass, ThreeCircles } from "react-loader-spinner";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -87,8 +88,27 @@ function Home() {
     toast.success("Event created successfully!");
   };
 
-  if (loading) return <div>Loading events...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading)
+    return (
+      <div className="flex flex-col justify-center items-center h-screen w-full">
+        <h1 className="text-yellow-50 text-2xl mb-6 font-bold">Carregando eventos em Ubatuba!</h1>
+        <ThreeCircles
+          visible={true}
+          height="100"
+          width="100"
+          color="#06f3bc"
+          ariaLabel="three-circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    );
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen w-full">
+        <h1 className="text-yellow-50 text-2xl font-bold">Error: {error}</h1>
+      </div>
+    );
 
   return (
     <>
@@ -96,11 +116,11 @@ function Home() {
       <div className="min-h-screen w-full bg-[##234683] p-12">
         <h1
           style={{ fontFamily: "'Original Surfer', cursive", fontWeight: 900 }}
-          className="text-3xl font-bold mb-4 mt-2 text-yellow-50"
+          className="md:text-3xl text-md  flex justify-center font-bold mb-4 md:mt-2 mt-5 text-yellow-50"
         >
           🌊 Próximos Eventos em Ubatuba 🌊
         </h1>
-        <div className="px-5 lg:px-10">
+        <div className="md:mx-4 md:p-4 ">
           <div className="relative">
             <Search
               onClick={() => searchRef.current?.focus()}
@@ -111,17 +131,15 @@ function Home() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Pesquisar Evento ou Local"
-              className="bg-slate-100 font-bold mb-4 border-2 border-slate-900 mt-2 text-slate-900 pl-10"
+              className="bg-slate-600 font-bold mb-4 border-2 border-slate-200 mt-2 text-slate-100 pl-10 text-xs "
             />
           </div>
         </div>
-        <div className="w-full container mx-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full container md:mx-4 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CreateEventModal onCreate={handleCreate} />
           {filteredEvents.map((event, index) => (
             <Link to={`/event/${event.id}`} key={index}>
-              <Card
-                className="min-h-80 relative bg-slate-300 overflow-hidden pt-0 ƒ"
-              >
+              <Card className="min-h-80 relative bg-slate-300 overflow-hidden pt-0">
                 <div className="w-full">
                   {event.image ? (
                     <img
