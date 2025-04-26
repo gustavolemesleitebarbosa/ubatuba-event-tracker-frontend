@@ -25,11 +25,11 @@ export function DeleteEventModal({ event, onDelete }: DeleteEventModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="bg-slate-300 rounded-full" size="icon">
+        <Button variant="outline" className="bg-slate-100 rounded-full" size="icon">
           <Trash2 className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-slate-100">
+      <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Delete Event</DialogTitle>
           <DialogDescription>

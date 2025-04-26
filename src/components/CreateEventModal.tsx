@@ -84,12 +84,12 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="fixed top-4 right-4 bg-slate-300 rounded-full" variant="outline" size="lg">
+        <Button className="fixed top-4 z-20 right-4 bg-slate-300 rounded-full" variant="outline" size="lg">
           <Plus className="h-4 w-4" />
           Create Event
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-slate-100">
+      <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Create New Event</DialogTitle>
         </DialogHeader>
