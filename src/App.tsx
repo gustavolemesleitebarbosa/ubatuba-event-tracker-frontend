@@ -12,8 +12,10 @@ import { Input } from "./components/ui/input";
 
 function App() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const fetchEvents = async () => {
     try {
@@ -33,6 +35,18 @@ function App() {
   useEffect(() => {
     fetchEvents();
   }, []);
+
+  useEffect(() => {
+    if(search.length > 0) {
+      const filteredEvents = events.filter((event) =>
+        event.title.toLowerCase().includes(search.toLowerCase()) ||
+        event.location.toLowerCase().includes(search.toLowerCase())
+      );
+      setFilteredEvents(filteredEvents);
+    } else {
+      setFilteredEvents(events);
+    }
+  }, [events, search]);
 
   const handleEdit = async (updatedEvent: Event) => {
     await fetch(`${import.meta.env.VITE_BASE_URL}${updatedEvent.id}`, {
@@ -86,19 +100,21 @@ function App() {
         >
           🌊 Próximos Eventos em Ubatuba 🌊
         </h1>
-        <div className="px-6 lg:px-11">
+        <div className="px-5 lg:px-10">
           <div className="relative">
             <Search onClick={()=> searchRef.current?.focus()} className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
             <Input
               ref={searchRef}
-              placeholder="Pesquisar Evento"
-              className="bg-slate-100 font-bold mb-4 mt-2 text-slate-900 pl-10"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Pesquisar Evento ou Local"
+              className="bg-slate-100 font-bold mb-4 border-2 border-slate-900 mt-2 text-slate-900 pl-10"
             />
           </div>
         </div>
         <div className="w-full container mx-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <CreateEventModal onCreate={handleCreate} />
-          {events.map((event, index) => (
+          {filteredEvents.map((event, index) => (
             <Card
               key={index}
               className="min-h-80 relative bg-slate-300 overflow-hidden pt-0 ƒ"
