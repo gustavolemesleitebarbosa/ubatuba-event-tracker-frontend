@@ -206,7 +206,7 @@ function Home() {
                   />
                 ) : (
                   <Img
-                    src="/src/assets/placeholder.png"
+                    src="/images/placeholder.png"
                     alt="Event placeholder"
                     className="w-full h-24 lg:h-44"
                   />

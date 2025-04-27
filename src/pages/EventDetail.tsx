@@ -87,7 +87,7 @@ function EventDetail() {
             />
           ) : (
             <img
-              src="/src/assets/placeholder.png"
+              src="/images/placeholder.png"
               alt="Event placeholder"
               className="w-full h-48 md:h-96 object-cover rounded-t-lg"
             />
