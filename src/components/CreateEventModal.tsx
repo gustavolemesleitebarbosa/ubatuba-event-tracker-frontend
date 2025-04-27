@@ -21,7 +21,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import { EVENT_CATEGORIES } from "@/constants/categories";
+import { CategoryTranslations, EVENT_CATEGORIES } from "@/constants/categories";
 import { ColorRing } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -238,7 +238,7 @@ export function CreateEventModal({
               <SelectTrigger
                 className={errors.category ? "border-red-500" : ""}
               >
-                <span>{formData.category || "Select a category"}</span>
+                <span>{formData.category ? CategoryTranslations[formData.category as keyof typeof CategoryTranslations] : "Selecione uma categoria"}</span>
               </SelectTrigger>
               <SelectContent>
                 {EVENT_CATEGORIES.map((category) => (
@@ -247,7 +247,7 @@ export function CreateEventModal({
                     key={category}
                     value={category}
                   >
-                    {category}
+                    {CategoryTranslations[category]}
                   </SelectItem>
                 ))}
               </SelectContent>

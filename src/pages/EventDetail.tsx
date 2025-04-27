@@ -5,7 +5,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { ThreeCircles } from "react-loader-spinner";
-import { CategoryColors, EventCategory } from "@/constants/categories";
+import { CategoryColors, CategoryTranslations, EventCategory } from "@/constants/categories";
 
 function EventDetail() {
   const { id } = useParams();
@@ -106,7 +106,7 @@ function EventDetail() {
                   CategoryColors[event.category as EventCategory]
                 }`}
               >
-                {event.category}
+                {CategoryTranslations[event.category as EventCategory]}
               </span>
             )}
           </div>

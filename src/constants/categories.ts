@@ -18,6 +18,16 @@ export const CategoryColors: Record<EventCategory, string> = {
   'Surf': 'bg-teal-500'
 }
 
+export const CategoryTranslations: Record<EventCategory, string> = {
+  'Music': 'Música',
+  'Sports': 'Esportes',
+  'Education': 'Educação',
+  'Food': 'Comida',
+  'Art': 'Arte',
+  'Literature': 'Literatura',
+  'Surf': 'Surfe'
+}
+
 export type EventCategory = typeof EVENT_CATEGORIES[number];
 
 // Helper function to check if a string is a valid category

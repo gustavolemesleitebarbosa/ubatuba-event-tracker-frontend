@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Input } from "../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
-import { CategoryColors, EventCategory } from "@/constants/categories";
+import { CategoryColors, CategoryTranslations, EventCategory } from "@/constants/categories";
 import { Img } from "react-image";
 import { getAuthHeaders } from "../utils/api";
 import { useAuth } from "@/contexts/AuthContext";
@@ -234,7 +234,7 @@ function Home() {
                         CategoryColors[event.category as EventCategory]
                       }`}
                     >
-                      {event.category}
+                      {CategoryTranslations[event.category as EventCategory]}
                     </span>
                   )}
                 </div>
