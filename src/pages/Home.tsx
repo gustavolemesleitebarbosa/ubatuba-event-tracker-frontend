@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, EventCategory } from "@/constants/categories";
 import { Img } from "react-image";
+import { getAuthHeaders } from "../utils/api";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -64,17 +65,20 @@ function Home() {
   const handleEdit = async (updatedEvent: Event) => {
     setUpdatingEventId(updatedEvent.id);
     try {
-      await fetch(`${import.meta.env.VITE_BASE_URL}events/${updatedEvent.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}events/${updatedEvent.id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(updatedEvent),
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to update event');
+      }
+
       await fetchEvents();
       toast.success("Event updated successfully!");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+    } catch (error) {
+      toast.error("Failed to update event");
     } finally {
       setUpdatingEventId(null);
     }
@@ -83,16 +87,19 @@ function Home() {
   const handleDelete = async (eventToDelete: Event) => {
     setDeletingEventId(eventToDelete.id);
     try {
-      await fetch(`${import.meta.env.VITE_BASE_URL}events/${eventToDelete.id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}events/${eventToDelete.id}`, {
         method: "DELETE",
-        headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    await fetchEvents();
-    toast.success("Event deleted successfully!");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+        headers: getAuthHeaders(),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete event');
+      }
+
+      await fetchEvents();
+      toast.success("Event deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete event");
     } finally {
       setDeletingEventId(null);
     }
@@ -100,16 +107,24 @@ function Home() {
 
   const handleCreate = async (newEvent: Omit<Event, "id">) => {
     setCreating(true);
-    await fetch(`${import.meta.env.VITE_BASE_URL}events`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newEvent),
-    });
-    await fetchEvents();
-    setCreating(false);
-    toast.success("Event created successfully!");
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}events`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(newEvent),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create event');
+      }
+      
+      await fetchEvents();
+      toast.success("Event created successfully!");
+    } catch (error) {
+      toast.error("Failed to create event");
+    } finally {
+      setCreating(false);
+    }
   };
 
   if (loading)

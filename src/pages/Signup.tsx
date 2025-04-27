@@ -6,20 +6,37 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { signupSchema } from "@/schemas/auth.schema";
+import { z } from "zod";
 
 export function Signup() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      console.log(username, password);
-      signup(username, password);
+    setErrors({});
+
+    try {
+      signupSchema.parse({ email, password, confirmPassword });
+      await signup(email, password);
       navigate("/");
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        err.errors.forEach((error) => {
+          if (error.path[0]) {
+            newErrors[error.path[0].toString()] = error.message;
+          }
+        });
+        setErrors(newErrors);
+      } else {
+        setErrors({ form: "Failed to create account" });
+      }
     }
   };
 
@@ -41,14 +58,22 @@ export function Signup() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignup} className="space-y-4">
+              {errors.form && (
+                <p className="text-red-500 text-sm text-center">{errors.form}</p>
+              )}
               <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={errors.email ? "border-red-500" : ""}
                   required
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
@@ -57,8 +82,12 @@ export function Signup() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className={errors.password ? "border-red-500" : ""}
                   required
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">{errors.password}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
@@ -67,11 +96,15 @@ export function Signup() {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  className={errors.confirmPassword ? "border-red-500" : ""}
                   required
                 />
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+                )}
               </div>
               <div className="space-y-4">
-                <Button type="submit"variant="outline" className="w-full">
+                <Button type="submit" variant="outline" className="w-full">
                   Create Account
                 </Button>
                 <Button

@@ -6,23 +6,36 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { loginSchema } from "@/schemas/auth.schema";
+import { z } from "zod";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setErrors({});
+    
     try {
+      loginSchema.parse({ email, password });
       await login(email, password);
       navigate("/");
     } catch (err) {
-      setError(err?.message);
-      setError("Invalid email or password");
+      if (err instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        err.errors.forEach((error) => {
+          if (error.path[0]) {
+            newErrors[error.path[0].toString()] = error.message;
+          }
+        });
+        setErrors(newErrors);
+      } else {
+        setErrors({ form: "Invalid email or password" });
+      }
     }
   };
 
@@ -44,14 +57,22 @@ export function Login() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
+              {errors.form && (
+                <p className="text-red-500 text-sm text-center">{errors.form}</p>
+              )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className={errors.email ? "border-red-500" : ""}
                   required
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email}</p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
@@ -60,8 +81,12 @@ export function Login() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className={errors.password ? "border-red-500" : ""}
                   required
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">{errors.password}</p>
+                )}
               </div>
               <div className="space-y-4">
                 <Button type="submit" variant="outline" className="w-full">
@@ -70,7 +95,7 @@ export function Login() {
                 <Button
                   type="button"
                   variant="outline"
-                  className="bg-slate-200  w-full"
+                  className="bg-slate-200 w-full"
                   onClick={() => navigate("/signup")}
                 >
                   Create Account

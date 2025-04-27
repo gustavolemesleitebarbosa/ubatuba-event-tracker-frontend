@@ -36,7 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
-      Cookies.set("token", data.token, { expires: 7 }); // Expires in 7 days
+      Cookies.set("token", data.access_token, { expires: 7 }); // Expires in 7 days
       setIsAuthenticated(true);
     } catch (error) {
       console.log(error);
@@ -65,7 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const data = await response.json();
-      Cookies.set("token", data.token, { expires: 7 });
+      Cookies.set("token", data.access_token, { expires: 7 });
       setIsAuthenticated(true);
     } catch (error) {
       console.log(error);
