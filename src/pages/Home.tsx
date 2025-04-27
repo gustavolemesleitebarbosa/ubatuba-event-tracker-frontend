@@ -181,7 +181,7 @@ function Home() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Pesquisar Evento ou Local"
-              className="bg-slate-100 font-bold mb-4 border-2 border-slate-200 mt-2 text-slate-100 pl-10 text-xs "
+              className="bg-slate-100 font-bold mb-4 border-2 border-slate-200 mt-2 text-slate-800 pl-10 text-xs "
             />
           </div>
         </div>
@@ -229,6 +229,18 @@ function Home() {
                     </span>
                   )}
                 </div>
+                <p className="mt-2 text-md pt-6 text-gray-600">
+                  {" "}
+                  <b>
+                    {" "}
+                    {new Date(event.date).toLocaleDateString("pt-BR", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </b>{" "}
+                </p>
                 <p className="mt-2 text-sm pt-6 text-gray-600">
                   {" "}
                   Local: <b>{event.location}</b>{" "}
@@ -237,7 +249,7 @@ function Home() {
                   {event.description}
                 </p>
                 {isAuthenticated && (
-                  <div className="w-full pt-6 justify-end ml-auto flex gap-3">
+                  <div className="w-full pt-3  justify-end ml-auto flex gap-3">
                     <EditEventModal
                       event={event}
                       onSave={handleEdit}
