@@ -9,7 +9,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { Input } from "../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
-import { CategoryColors, CategoryTranslations, EventCategory } from "@/constants/categories";
+import {
+  CategoryColors,
+  CategoryTranslations,
+  EventCategory,
+} from "@/constants/categories";
 import { Img } from "react-image";
 import { getAuthHeaders } from "../utils/api";
 import { useAuth } from "@/contexts/AuthContext";
@@ -106,7 +110,7 @@ function Home() {
       }
 
       await fetchEvents();
-      toast.success("Evento deletado com sucesso!"); 
+      toast.success("Evento deletado com sucesso!");
     } catch {
       toast.error("Falha ao deletar o evento");
     } finally {
@@ -195,7 +199,7 @@ function Home() {
           <CreateEventModal onCreate={handleCreate} creating={creating} />
           {isAuthenticated && <LogoutModal />}
         </div>
-        <div className="w-full container cursor-pointer md:mx-4 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full  cursor-pointer grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:px-8">
           {filteredEvents.map((event) => (
             <Card
               key={event.id}
