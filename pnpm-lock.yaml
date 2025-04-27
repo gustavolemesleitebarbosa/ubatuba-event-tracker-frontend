@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@babel/runtime': ^7
   '@eslint/js': ^9.22.0
   '@radix-ui/react-dialog': ^1.1.11
   '@radix-ui/react-label': ^2.1.4
@@ -23,6 +24,7 @@ specifiers:
   react: ^19.0.0
   react-dom: ^19.0.0
   react-hot-toast: ^2.5.2
+  react-image: ^4.1.0
   react-loader-spinner: ^6.1.6
   react-router-dom: ^7.5.2
   tailwind-merge: ^3.2.0
@@ -34,6 +36,7 @@ specifiers:
   zod: ^3.24.3
 
 dependencies:
+  '@babel/runtime': 7.27.0
   '@radix-ui/react-dialog': 1.1.11_5j5q5giq4a6q5rwe55huzqxn5e
   '@radix-ui/react-label': 2.1.4_5j5q5giq4a6q5rwe55huzqxn5e
   '@radix-ui/react-select': 2.2.2_5j5q5giq4a6q5rwe55huzqxn5e
@@ -47,6 +50,7 @@ dependencies:
   react: 19.1.0
   react-dom: 19.1.0_react@19.1.0
   react-hot-toast: 2.5.2_j6k6oay3ugsr56slyfvma2drry
+  react-image: 4.1.0_iphtuxim23imkfgvnozkp3k3jq
   react-loader-spinner: 6.1.6_j6k6oay3ugsr56slyfvma2drry
   react-router-dom: 7.5.2_j6k6oay3ugsr56slyfvma2drry
   tailwind-merge: 3.2.0
@@ -221,6 +225,13 @@ packages:
       '@babel/core': 7.26.10
       '@babel/helper-plugin-utils': 7.26.5
     dev: true
+
+  /@babel/runtime/7.27.0:
+    resolution: {integrity: sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@babel/template/7.27.0:
     resolution: {integrity: sha512-2ncevenBqXI6qRMukPlXwHKHchC7RyMuu4xv5JBXRfOGVcTy1mXCD12qrp7Jsoxll1EV3+9sE4GugBVRjT2jFA==}
@@ -2749,6 +2760,18 @@ packages:
       react-dom: 19.1.0_react@19.1.0
     dev: false
 
+  /react-image/4.1.0_iphtuxim23imkfgvnozkp3k3jq:
+    resolution: {integrity: sha512-qwPNlelQe9Zy14K2pGWSwoL+vHsAwmJKS6gkotekDgRpcnRuzXNap00GfibD3eEPYu3WCPlyIUUNzcyHOrLHjw==}
+    peerDependencies:
+      '@babel/runtime': '>=7'
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@babel/runtime': 7.27.0
+      react: 19.1.0
+      react-dom: 19.1.0_react@19.1.0
+    dev: false
+
   /react-is/18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
     dev: false
@@ -2867,6 +2890,10 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
+    dev: false
+
+  /regenerator-runtime/0.14.1:
+    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
     dev: false
 
   /resolve-from/4.0.0:

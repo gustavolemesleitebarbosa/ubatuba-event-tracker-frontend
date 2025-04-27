@@ -10,6 +10,7 @@ import { Input } from "../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, EventCategory } from "@/constants/categories";
+import { Img } from 'react-image';
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -116,15 +117,6 @@ function Home() {
       </div>
     );
 
-  if (events.length === 0)
-    return (
-      <div className="flex justify-center items-center h-screen w-full">
-        <h1 className="text-yellow-50 text-2xl font-bold">
-          {" "}
-          Nenhum evento encontrado para
-        </h1>
-      </div>
-    );
 
   return (
     <>
@@ -161,13 +153,13 @@ function Home() {
             >
               <div className="w-full">
                 {event.image ? (
-                  <img
+                  <Img
                     src={event.image}
                     alt={event.title}
                     className="w-full h-24 lg:h-44 object-cover"
                   />
                 ) : (
-                  <img
+                  <Img
                     src="/src/assets/placeholder.png"
                     alt="Event placeholder"
                     className="w-full h-24 lg:h-44"
