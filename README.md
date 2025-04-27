@@ -1,54 +1,211 @@
-# React + TypeScript + Vite
+# Ubatuba Event Tracker 🌊
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+Ubatuba Event Tracker is a web application built with React and TypeScript that allows users to discover, create, and manage events in Ubatuba. The application provides a user-friendly interface for viewing upcoming events, with features for authentication and event management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Key Features
+- View upcoming events in Ubatuba
+- Search events by title or location
+- Create new events with images and categories
+- Edit and delete existing events
+- User authentication system
+- Responsive design for mobile and desktop
 
-## Expanding the ESLint configuration
+## Setup Instructions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
+- Node.js (v19.0.0 or higher)
+- npm, yarn, or pnpm package manager
+- Modern web browser
+- Internet connection
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone git@github.com:gustavolemesleitebarbosa/ubatuba-event-tracker-frontend.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Navigate to the project directory:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+cd ubatuba-event-tracker-frontend
 ```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+or
+
+```bash
+yarn
+```
+or
+
+```bash
+pnpm install
+```
+
+4. Create a `.env` file in the root directory with the following content:
+
+```env
+VITE_BASE_URL=your_api_base_url
+```
+
+5. Start the development server:
+
+```bash
+npm run dev
+```
+or
+
+```bash
+yarn dev
+```
+or
+
+```bash
+pnpm dev
+```
+
+The application will be available at [http://localhost:5173](http://localhost:5173).
+
+### Building for Production
+
+To create a production build:
+
+```bash
+npm run build
+```
+or
+
+```bash
+yarn build
+```
+or
+
+```bash
+pnpm build
+```
+
+## API Documentation
+
+### Authentication Endpoints
+
+#### Login
+- **URL**: `/auth/login`
+- **Method**: `POST`
+- **Body**:
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+- **Response**: JWT token
+
+#### Signup
+- **URL**: `/auth/signup`
+- **Method**: `POST`
+- **Body**:
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+- **Response**: JWT token
+
+### Event Endpoints
+
+#### Get All Events
+- **URL**: `/events`
+- **Method**: `GET`
+- **Response**: Array of events
+
+#### Get Single Event
+- **URL**: `/events/:id`
+- **Method**: `GET`
+- **Response**: Event object
+
+#### Create Event
+- **URL**: `/events`
+- **Method**: `POST`
+- **Authentication**: Required
+- **Body**:
+
+```json
+{
+  "title": "string",
+  "description": "string",
+  "location": "string",
+  "date": "string",
+  "category": "string",
+  "image": "string"
+}
+```
+
+#### Update Event
+- **URL**: `/events/:id`
+- **Method**: `PUT`
+- **Authentication**: Required
+- **Body**: Same as Create Event
+
+#### Delete Event
+- **URL**: `/events/:id`
+- **Method**: `DELETE`
+- **Authentication**: Required
+
+## Technical Details
+
+### Built With
+- React 19
+- TypeScript
+- Vite
+- TailwindCSS
+- Shadcn/ui Components
+- React Router DOM
+- Zod for validation
+- React Hot Toast for notifications
+
+### Project Structure
+
+```text
+src/
+├── components/    # Reusable UI components
+├── contexts/      # React contexts
+├── pages/         # Page components
+├── schemas/       # Validation schemas
+├── types/         # TypeScript types
+├── utils/         # Utility functions
+└── constants/     # Constants and configurations
+```
+
+### Authentication
+- JWT-based authentication
+- Tokens stored in cookies
+- Protected routes for authenticated users
+
+### Event Categories
+- Music
+- Sports
+- Education
+- Food
+- Art
+- Literature
+- Surf
+
+## Assumptions and Limitations
+- Users must be authenticated to create, edit, or delete events
+- Image uploads are handled through base64 encoding
+- Events are displayed in chronological order
+- The application requires a modern browser with JavaScript enabled
+- API endpoints must be configured through environment variables
