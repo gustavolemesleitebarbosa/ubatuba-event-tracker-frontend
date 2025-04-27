@@ -12,6 +12,17 @@ Ubatuba Event Tracker is a web application built with React and TypeScript that 
 - User authentication system
 - Responsive design for mobile and desktop
 
+## Deployment
+
+The application is deployed on Vercel and can be accessed at:
+[https://ubatuba-event-tracker-frontend.vercel.app/]
+
+### Deployment Process
+1. The application is automatically deployed to Vercel when changes are pushed to the main branch
+2. Vercel handles the build process using the `npm run build` command
+3. Environment variables are configured in the Vercel dashboard
+4. The deployment is automatically updated with each push to the main branch
+
 ## Setup Instructions
 
 ### Prerequisites
