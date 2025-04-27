@@ -10,7 +10,7 @@ import { Input } from "../components/ui/input";
 import { useNavigate } from "react-router-dom";
 import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, EventCategory } from "@/constants/categories";
-import { Img } from 'react-image';
+import { Img } from "react-image";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -20,6 +20,7 @@ function Home() {
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const [updatingEventId, setUpdatingEventId] = useState<string | null>(null);
 
   const fetchEvents = async () => {
     try {
@@ -28,7 +29,12 @@ function Home() {
         throw new Error("Failed to fetch events");
       }
       const data = await response.json();
-      setEvents(data);
+      const sortedEvents = data.sort((a: Event, b: Event) => {
+        const dateA = new Date(a.date).getTime();
+        const dateB = new Date(b.date).getTime();
+        return dateA - dateB;
+      });
+      setEvents(sortedEvents);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -54,15 +60,20 @@ function Home() {
   }, [events, search]);
 
   const handleEdit = async (updatedEvent: Event) => {
-    await fetch(`${import.meta.env.VITE_BASE_URL}${updatedEvent.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedEvent),
-    });
-    await fetchEvents();
-    toast.success("Event updated successfully!");
+    setUpdatingEventId(updatedEvent.id);
+    try {
+      await fetch(`${import.meta.env.VITE_BASE_URL}${updatedEvent.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEvent),
+      });
+      await fetchEvents();
+      toast.success("Event updated successfully!");
+    } finally {
+      setUpdatingEventId(null);
+    }
   };
 
   const handleDelete = async (eventToDelete: Event) => {
@@ -117,7 +128,6 @@ function Home() {
       </div>
     );
 
-
   return (
     <>
       <Toaster />
@@ -167,29 +177,35 @@ function Home() {
                 )}
                 <div className="bg-black w-full h-[1.5px]"></div>
               </div>
-              <CardHeader>
-                <CardTitle className="font-bold">
-                  {event.title}
+
+              <CardContent className="text-gray-800 space-y-1">
+                <div className="flex items-center gap-4">
+                  <CardTitle className="w-[60%] md:w-[80%] text-md overflow-hidden whitespace-nowrap text-ellipsis  break-words  md:text-2xl font-bold">
+                    {event.title}
+                  </CardTitle>
                   {event.category && (
-                    <span className={`ml-4 px-3 py-1 text-sm rounded-full text-white ${CategoryColors[event.category as EventCategory]}`}>
+                    <span
+                      className={`px-4 py-1.5 text-sm md:text-lg rounded-full text-white ${
+                        CategoryColors[event.category as EventCategory]
+                      }`}
+                    >
                       {event.category}
                     </span>
                   )}
-                  <br />
-                  <br />
-                  {new Date(event.date).toLocaleDateString("pt-BR")}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-gray-800 flex flex-col items-start">
-                <p className="mt-2 text-sm text-gray-600">
+                </div>
+                <p className="mt-2 text-sm pt-6 text-gray-600">
                   {" "}
                   Local: <b>{event.location}</b>{" "}
                 </p>
                 <p className="text-sm text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full">
                   {event.description}
                 </p>
-                <div className="w-full justify-end mt-3 ml-auto flex gap-3">
-                  <EditEventModal event={event} onSave={handleEdit} />
+                <div className="w-full pt-6 justify-end ml-auto flex gap-3">
+                  <EditEventModal
+                    event={event}
+                    onSave={handleEdit}
+                    updating={updatingEventId === event.id}
+                  />
                   <DeleteEventModal
                     event={event}
                     onDelete={() => handleDelete(event)}

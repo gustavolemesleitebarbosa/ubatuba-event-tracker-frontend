@@ -4,7 +4,7 @@ import Event from "../types/Event";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import {  ThreeCircles } from "react-loader-spinner";
+import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, EventCategory } from "@/constants/categories";
 
 function EventDetail() {
@@ -95,33 +95,36 @@ function EventDetail() {
           <div className="bg-black w-full h-[1.5px]"></div>
         </div>
 
-        <CardHeader>
+        <CardContent className="space-y-6">
           <div className="flex items-center gap-4">
-            <CardTitle className="text-2xl md:text-4xl font-bold">
+            <CardTitle className="w-[60%] md:w-[80%] break-words text-xl md:text-4xl font-bold">
               {event.title}
             </CardTitle>
             {event.category && (
-              <span className={`px-4 py-1.5 text-lg rounded-full text-white ${CategoryColors[event.category as EventCategory]}`}>
+              <span
+                className={`px-4 py-1.5 text-sm md:text-lg rounded-full text-white ${
+                  CategoryColors[event.category as EventCategory]
+                }`}
+              >
                 {event.category}
               </span>
             )}
           </div>
-          <p className="text-lg font-semibold text-gray-700">
-            {new Date(event.date).toLocaleDateString("pt-BR", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </p>
-        </CardHeader>
-
-        <CardContent className="space-y-6">
+          <div>
+            <p className="text-lg break-words font-semibold text-gray-700">
+              {new Date(event.date).toLocaleDateString("pt-BR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </p>
+          </div>
           <div>
             <h2 className="text-xl font-semibold mb-2">Location</h2>
-            <p className="text-gray-700">{event.location}</p>
+            <p className="text-gray-700 break-words">{event.location}</p>
           </div>
 
           <div>
