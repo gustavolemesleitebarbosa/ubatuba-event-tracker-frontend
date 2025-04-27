@@ -56,15 +56,14 @@ export function DeleteEventModal({
         className="bg-slate-100 max-h-[80vh] overflow-y-auto"
       >
         <DialogHeader>
-          <DialogTitle>Delete Event</DialogTitle>
+          <DialogTitle>Deletar Evento</DialogTitle>
           <DialogDescription>
-            Are you sure you want to delete "{event.title.length > 25 ? event.title.substring(0, 15) + '...' : event.title}"? This action cannot
-            be undone.
+            Você tem certeza que gostaria de deletar "{event.title.length > 25 ? event.title.substring(0, 15) + '...' : event.title}"? Essa ação não pode ser desfeita.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Cancelar</Button>
           </DialogClose>
           <DialogClose asChild>
             <Button
@@ -72,7 +71,7 @@ export function DeleteEventModal({
               className="bg-red-500"
               onClick={handleDelete}
             >
-              Delete
+              Deletar
             </Button>
           </DialogClose>
         </DialogFooter>

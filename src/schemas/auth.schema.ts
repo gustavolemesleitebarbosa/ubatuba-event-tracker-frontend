@@ -1,17 +1,17 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
 });
 
 export const signupSchema = z
   .object({
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
+    email: z.string().email("Email inválido"),
+    password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: "As senhas não coincidem",
     path: ["confirmPassword"],
   }); 

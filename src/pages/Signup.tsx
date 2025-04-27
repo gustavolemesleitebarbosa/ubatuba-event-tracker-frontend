@@ -35,7 +35,7 @@ export function Signup() {
         });
         setErrors(newErrors);
       } else {
-        setErrors({ form: "Failed to create account" });
+        setErrors({ form: "Falha ao criar conta" });
       }
     }
   };
@@ -48,7 +48,7 @@ export function Signup() {
         className="absolute top-4 left-4 mb-6 bg-slate-100 w-fit"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Events
+        Voltar para os eventos
       </Button>
       <img
         src="/images/logo_header.png"
@@ -57,7 +57,7 @@ export function Signup() {
       />
       <Card className="w-full max-w-md mx-auto  bg-slate-100">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Create Account</CardTitle>
+          <CardTitle className="text-2xl text-center">Criar conta</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignup} className="space-y-4">
@@ -79,7 +79,7 @@ export function Signup() {
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Senha</Label>
               <Input
                 id="password"
                 type="password"
@@ -93,7 +93,7 @@ export function Signup() {
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">Confirmar senha</Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -108,7 +108,7 @@ export function Signup() {
             </div>
             <div className="space-y-4">
               <Button type="submit" variant="outline" className="w-full">
-                Create Account
+                Criar conta
               </Button>
               <Button
                 type="button"
@@ -116,7 +116,7 @@ export function Signup() {
                 className="w-full bg-slate-200"
                 onClick={() => navigate("/login")}
               >
-                Back to Login
+                Já tenho uma conta
               </Button>
             </div>
           </form>

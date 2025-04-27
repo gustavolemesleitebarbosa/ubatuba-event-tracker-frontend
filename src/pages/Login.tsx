@@ -34,7 +34,7 @@ export function Login() {
         });
         setErrors(newErrors);
       } else {
-        setErrors({ form: "Invalid email or password" });
+        setErrors({ form: "Email ou senha inválidos" });
       }
     }
   };
@@ -47,7 +47,7 @@ export function Login() {
         className="absolute top-4 left-4 mb-6 bg-slate-100 w-fit"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Events
+        Voltar para os eventos
       </Button>
       <img
         src="/images/logo_header.png"
@@ -56,7 +56,7 @@ export function Login() {
       />
       <Card className="w-full max-w-md mx-auto  bg-slate-100">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Login</CardTitle>
+          <CardTitle className="text-2xl text-center">Entrar</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -78,7 +78,7 @@ export function Login() {
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Senha</Label>
               <Input
                 id="password"
                 type="password"
@@ -93,7 +93,7 @@ export function Login() {
             </div>
             <div className="space-y-4">
               <Button type="submit" variant="outline" className="w-full">
-                Login
+                Entrar
               </Button>
               <Button
                 type="button"
@@ -101,7 +101,7 @@ export function Login() {
                 className="bg-slate-200 w-full"
                 onClick={() => navigate("/signup")}
               >
-                Create Account
+                Criar conta
               </Button>
             </div>
           </form>

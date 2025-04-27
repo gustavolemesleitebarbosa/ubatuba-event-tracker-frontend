@@ -19,12 +19,12 @@ function EventDetail() {
       try {
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}events/${id}`);
         if (!response.ok) {
-          throw new Error("Failed to fetch event");
+          throw new Error("Falha ao buscar o evento");
         }
         const data = await response.json();
         setEvent(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(err instanceof Error ? err.message : "Ocorreu um erro");
       } finally {
         setLoading(false);
       }
@@ -38,7 +38,7 @@ function EventDetail() {
     return (
       <div className="flex flex-col justify-center items-center h-screen w-full">
         <h1 className="text-yellow-50 text-2xl font-bold mb-6">
-          Carregando evento!
+          Carregando evento...
         </h1>
         <ThreeCircles
           visible={true}
@@ -74,7 +74,7 @@ function EventDetail() {
         className="mb-6 bg-slate-100"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Events
+        Voltar para os eventos
       </Button>
 
       <Card className="max-w-4xl pt-0 mx-auto bg-slate-300">
@@ -123,12 +123,12 @@ function EventDetail() {
             </p>
           </div>
           <div>
-            <h2 className="text-xl font-semibold mb-2">Location</h2>
+            <h2 className="text-xl font-semibold mb-2">Local</h2>
             <p className="text-gray-700 break-words">{event.location}</p>
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold mb-2">Description</h2>
+            <h2 className="text-xl font-semibold mb-2">Descrição</h2>
             <p className="text-gray-700 break-words">{event.description}</p>
           </div>
         </CardContent>

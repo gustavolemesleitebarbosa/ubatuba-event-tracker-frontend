@@ -107,11 +107,11 @@ export function EditEventModal({
         className="bg-slate-100 max-h-[80vh] overflow-y-auto"
       >
         <DialogHeader>
-          <DialogTitle>Edit Event</DialogTitle>
+          <DialogTitle>Editar Evento</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Título</Label>
             <Input
               id="title"
               value={formData.title}
@@ -125,7 +125,7 @@ export function EditEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Descrição</Label>
             <Input
               id="description"
               value={formData.description}
@@ -139,7 +139,7 @@ export function EditEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="location">Local</Label>
             <Input
               id="location"
               value={formData.location}
@@ -153,7 +153,7 @@ export function EditEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Categoria</Label>
             <Select
               value={formData.category || undefined}
               onValueChange={(value) =>
@@ -163,8 +163,8 @@ export function EditEventModal({
               <SelectTrigger
                 className={errors.category ? "border-red-500" : ""}
               >
-                <span>{formData.category || "Select a category"}</span>
-              </SelectTrigger>
+                  <span>{formData.category || "Selecione uma categoria"}</span>
+              </SelectTrigger>                    
               <SelectContent>
                 {EVENT_CATEGORIES.map((category) => (
                   <SelectItem
@@ -182,7 +182,7 @@ export function EditEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">Data</Label>
             <Input
               id="date"
               type="datetime-local"
@@ -199,7 +199,7 @@ export function EditEventModal({
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Cancelar</Button>
           </DialogClose>
           <DialogClose asChild>
             <Button
@@ -208,7 +208,7 @@ export function EditEventModal({
               disabled={!isFormFilled()}
               onClick={handleSave}
             >
-              Save changes
+              Salvar alterações
             </Button>
           </DialogClose>
         </DialogFooter>

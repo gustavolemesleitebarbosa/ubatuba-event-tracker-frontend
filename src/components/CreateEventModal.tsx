@@ -146,18 +146,18 @@ export function CreateEventModal({
                 ariaLabel="color-ring-loading"
                 colors={["#0ff22d", "#0ff22d", "#0ff22d", "#849b87", "#849b87"]}
               />
-              <p>Creating...</p>
+              <p>Criando...</p>
             </>
           ) : (
             <>
               {isAuthenticated && (
                 <>
-                  <Plus className="mr-2 h-4 w-4" /> Add Event
+                  <Plus className="mr-2 h-4 w-4" /> Adicionar evento
                 </>
               )}
               {!isAuthenticated && (
                 <>
-                  Login
+                  Entrar
                   <LogIn className="mr-2 h-4 w-4" />
                 </>
               )}
@@ -167,11 +167,11 @@ export function CreateEventModal({
       </DialogTrigger>
       <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{"Create new event"}</DialogTitle>
+          <DialogTitle>{"Criar novo evento"}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title">Título</Label>
             <Input
               id="title"
               value={formData.title}
@@ -185,7 +185,7 @@ export function CreateEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Descrição</Label>
             <Input
               id="description"
               value={formData.description}
@@ -199,7 +199,7 @@ export function CreateEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="location">Local</Label>
             <Input
               id="location"
               value={formData.location}
@@ -213,7 +213,7 @@ export function CreateEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">Data</Label>
             <Input
               id="date"
               type="datetime-local"
@@ -228,7 +228,7 @@ export function CreateEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Categoria</Label>
             <Select
               value={formData.category || undefined}
               onValueChange={(value) =>
@@ -257,7 +257,7 @@ export function CreateEventModal({
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="image">Event Image</Label>
+            <Label htmlFor="image">Imagem do evento</Label>
             <input
               type="file"
               accept="image/*"
@@ -287,7 +287,7 @@ export function CreateEventModal({
         </div>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Cancelar</Button>
           </DialogClose>
           <DialogClose asChild>
             <Button
@@ -296,7 +296,7 @@ export function CreateEventModal({
               disabled={!isFormFilled()}
               onClick={handleCreate}
             >
-              Create
+              Criar
             </Button>
           </DialogClose>
         </DialogFooter>

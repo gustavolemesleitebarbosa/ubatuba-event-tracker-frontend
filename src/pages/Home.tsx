@@ -32,7 +32,7 @@ function Home() {
     try {
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}events`);
       if (!response.ok) {
-        throw new Error("Failed to fetch events");
+        throw new Error("Falha ao buscar os eventos");
       }
       const data = await response.json();
       const sortedEvents = data.sort((a: Event, b: Event) => {
@@ -42,7 +42,7 @@ function Home() {
       });
       setEvents(sortedEvents);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(err instanceof Error ? err.message : "Ocorreu um erro");
     } finally {
       setLoading(false);
     }
@@ -78,13 +78,13 @@ function Home() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update event");
+        throw new Error("Falha ao atualizar o evento");
       }
 
       await fetchEvents();
-      toast.success("Event updated successfully!");
+      toast.success("Evento atualizado com sucesso!");
     } catch {
-      toast.error("Failed to update event");
+      toast.error("Falha ao atualizar o evento");
     } finally {
       setUpdatingEventId(null);
     }
@@ -102,13 +102,13 @@ function Home() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete event");
+        throw new Error("Falha ao deletar o evento");
       }
 
       await fetchEvents();
-      toast.success("Event deleted successfully!");
+      toast.success("Evento deletado com sucesso!"); 
     } catch {
-      toast.error("Failed to delete event");
+      toast.error("Falha ao deletar o evento");
     } finally {
       setDeletingEventId(null);
     }
@@ -124,13 +124,13 @@ function Home() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create event");
+        throw new Error("Falha ao criar o evento");
       }
 
       await fetchEvents();
-      toast.success("Event created successfully!");
+      toast.success("Evento criado com sucesso!");
     } catch {
-      toast.error("Failed to create event");
+      toast.error("Falha ao criar o evento");
     } finally {
       setCreating(false);
     }
@@ -157,7 +157,7 @@ function Home() {
   if (error)
     return (
       <div className="flex justify-center items-center h-screen w-full">
-        <h1 className="text-yellow-50 text-2xl font-bold">Error: {error}</h1>
+        <h1 className="text-yellow-50 text-2xl font-bold">Erro: {error}</h1>
       </div>
     );
 

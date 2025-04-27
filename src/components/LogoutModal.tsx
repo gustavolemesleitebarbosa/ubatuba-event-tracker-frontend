@@ -27,19 +27,19 @@ export function LogoutModal() {
       <DialogTrigger asChild>
         <Button className="mr-6 text-white" variant="ghost" size="icon">
           <LogOut className="h-4 w-4" />
-          <p>Logout</p>
+          <p>Sair</p>
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Logout</DialogTitle>
+          <DialogTitle>Sair</DialogTitle>
           <DialogDescription>
-            Are you sure you want to logout? You'll need to login again to create or modify events.
+            Tem certeza de que gostaria de sair ? Você terá que logar novamente para criar ou modificar eventos.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Cancelar</Button>
           </DialogClose>
           <DialogClose asChild>
             <Button
@@ -47,7 +47,7 @@ export function LogoutModal() {
               className="bg-red-500"
               onClick={handleLogout}
             >
-              Logout
+              Sair
             </Button>
           </DialogClose>
         </DialogFooter>
