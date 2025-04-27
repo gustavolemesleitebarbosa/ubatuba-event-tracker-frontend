@@ -22,13 +22,19 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { EVENT_CATEGORIES } from "@/constants/categories";
+import { ColorRing } from "react-loader-spinner";
 
 interface EditEventModalProps {
   event: Event;
   onSave: (updatedEvent: Event) => void;
+  updating?: boolean;
 }
 
-export function EditEventModal({ event, onSave }: EditEventModalProps) {
+export function EditEventModal({
+  event,
+  onSave,
+  updating = false,
+}: EditEventModalProps) {
   const [formData, setFormData] = useState(event);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isValid, setIsValid] = useState(true);
@@ -81,9 +87,19 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
           variant="outline"
           className="bg-slate-100 rounded-full"
           size="icon"
-          onClick={(e) => e.stopPropagation()}
+          disabled={updating}
         >
-          <Pencil className="h-4 w-4" />
+          {updating ? (
+            <ColorRing
+              visible={true}
+              height="50"
+              width="50"
+              ariaLabel="color-ring-loading"
+              colors={['#0ff22d', '#0ff22d', '#0ff22d', '#0ff22d', '#849b87']}
+            />
+          ) : (
+            <Pencil className="h-4 w-4" />
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent

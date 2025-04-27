@@ -22,12 +22,17 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { EVENT_CATEGORIES } from "@/constants/categories";
+import { ColorRing } from "react-loader-spinner";
 
 interface CreateEventModalProps {
   onCreate: (newEvent: Omit<Event, "id">) => void;
+  creating?: boolean;
 }
 
-export function CreateEventModal({ onCreate }: CreateEventModalProps) {
+export function CreateEventModal({
+  onCreate,
+  creating = false,
+}: CreateEventModalProps) {
   const [formData, setFormData] = useState<Omit<Event, "id">>({
     title: "",
     description: "",
@@ -108,26 +113,41 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
       formData.title.trim() !== "" &&
       formData.description.trim() !== "" &&
       formData.location.trim() !== "" &&
-      formData.date.trim() !== "" 
+      formData.date.trim() !== ""
     );
   };
 
   return (
     <Dialog onOpenChange={(open) => !open && resetForm()}>
-      <DialogTrigger  asChild>
+      <DialogTrigger asChild>
         <Button
           className="fixed top-4 z-20 right-4 bg-slate-300 rounded-full"
           variant="outline"
           size="lg"
+          disabled={creating}
         >
-          {" "}
-          <Plus className="mr-2 h-4 w-4" />
-          Add Event
+          {creating ? (
+            <>
+              <ColorRing
+                visible={true}
+                height="50"
+                width="50"
+                ariaLabel="color-ring-loading"
+                colors={["#0ff22d", "#0ff22d", "#0ff22d", "#849b87", "#849b87"]}
+              />
+              <p>Creating...</p>
+            </>
+          ) : (
+            <>
+              <Plus className="mr-2 h-4 w-4" />
+              Add Event
+            </>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-slate-100 max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Create New Event</DialogTitle>
+          <DialogTitle>{"Create new event"}</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
@@ -250,7 +270,14 @@ export function CreateEventModal({ onCreate }: CreateEventModalProps) {
             <Button variant="outline">Cancel</Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button variant="outline" className="bg-green-200" disabled={!isFormFilled()} onClick={handleCreate}>Create</Button>
+            <Button
+              variant="outline"
+              className="bg-green-200"
+              disabled={!isFormFilled()}
+              onClick={handleCreate}
+            >
+              Create
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

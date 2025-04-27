@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Search } from "lucide-react";
 import { DeleteEventModal } from "../components/DeleteEventModal";
 import { EditEventModal } from "../components/EditEventModal";
@@ -21,6 +21,8 @@ function Home() {
   const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [updatingEventId, setUpdatingEventId] = useState<string | null>(null);
+  const [deletingEventId, setDeletingEventId] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
 
   const fetchEvents = async () => {
     try {
@@ -71,25 +73,33 @@ function Home() {
       });
       await fetchEvents();
       toast.success("Event updated successfully!");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setUpdatingEventId(null);
     }
   };
 
   const handleDelete = async (eventToDelete: Event) => {
-    await fetch(`${import.meta.env.VITE_BASE_URL}${eventToDelete.id}`, {
-      method: "DELETE",
-      headers: {
+    setDeletingEventId(eventToDelete.id);
+    try {
+      await fetch(`${import.meta.env.VITE_BASE_URL}${eventToDelete.id}`, {
+        method: "DELETE",
+        headers: {
         "Content-Type": "application/json",
       },
     });
-    setLoading(true);
     await fetchEvents();
-    setLoading(false);
     toast.success("Event deleted successfully!");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setDeletingEventId(null);
+    }
   };
 
   const handleCreate = async (newEvent: Omit<Event, "id">) => {
+    setCreating(true);
     await fetch(`${import.meta.env.VITE_BASE_URL}`, {
       method: "POST",
       headers: {
@@ -97,9 +107,8 @@ function Home() {
       },
       body: JSON.stringify(newEvent),
     });
-    setLoading(true);
     await fetchEvents();
-    setLoading(false);
+    setCreating(false);
     toast.success("Event created successfully!");
   };
 
@@ -149,18 +158,17 @@ function Home() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Pesquisar Evento ou Local"
-              className="bg-slate-600 font-bold mb-4 border-2 border-slate-200 mt-2 text-slate-100 pl-10 text-xs "
+              className="bg-slate-100 font-bold mb-4 border-2 border-slate-200 mt-2 text-slate-100 pl-10 text-xs "
             />
           </div>
         </div>
-        <div className="w-full container md:mx-4 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CreateEventModal onCreate={handleCreate} />
+        <div className="w-full container cursor-pointer md:mx-4 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <CreateEventModal creating={creating} onCreate={handleCreate} />
           {filteredEvents.map((event) => (
             <Card
               key={event.id}
               onClick={() => navigate(`/event/${event.id}`)}
-              className="min-h-80 relative bg-slate-300 overflow-hidden pt-0"
-            >
+              className={`min-h-80 relative bg-slate-300 overflow-hidden pt-0 ${deletingEventId === event.id || updatingEventId === event.id ? 'pointer-events-none opacity-65' : ''}`}            >
               <div className="w-full">
                 {event.image ? (
                   <Img
@@ -209,6 +217,7 @@ function Home() {
                   <DeleteEventModal
                     event={event}
                     onDelete={() => handleDelete(event)}
+                    deleting={deletingEventId === event.id}
                   />
                 </div>
               </CardContent>
