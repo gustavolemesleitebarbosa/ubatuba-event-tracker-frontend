@@ -8,6 +8,7 @@ specifiers:
   '@radix-ui/react-select': ^2.2.2
   '@radix-ui/react-slot': ^1.2.0
   '@tailwindcss/vite': ^4.1.4
+  '@types/js-cookie': ^3.0.6
   '@types/node': ^22.15.2
   '@types/react': ^19.0.10
   '@types/react-dom': ^19.0.4
@@ -19,6 +20,7 @@ specifiers:
   eslint-plugin-react-hooks: ^5.2.0
   eslint-plugin-react-refresh: ^0.4.19
   globals: ^16.0.0
+  js-cookie: ^3.0.5
   lucide-react: ^0.503.0
   postcss: ^8.4.35
   react: ^19.0.0
@@ -42,9 +44,11 @@ dependencies:
   '@radix-ui/react-select': 2.2.2_5j5q5giq4a6q5rwe55huzqxn5e
   '@radix-ui/react-slot': 1.2.0_dl52hbs33murufky2ojig52vdq
   '@tailwindcss/vite': 4.1.4_vite@5.4.18
+  '@types/js-cookie': 3.0.6
   autoprefixer: 10.4.21_postcss@8.5.3
   class-variance-authority: 0.7.1
   clsx: 2.1.1
+  js-cookie: 3.0.5
   lucide-react: 0.503.0_react@19.1.0
   postcss: 8.5.3
   react: 19.1.0
@@ -1473,6 +1477,10 @@ packages:
   /@types/estree/1.0.7:
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
+  /@types/js-cookie/3.0.6:
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
+    dev: false
+
   /@types/json-schema/7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
@@ -2303,6 +2311,11 @@ packages:
   /jiti/2.4.2:
     resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
+    dev: false
+
+  /js-cookie/3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
     dev: false
 
   /js-tokens/4.0.0:

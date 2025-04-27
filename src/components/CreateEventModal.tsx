@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus, Upload } from "lucide-react";
+import { LogIn, Plus, Upload } from "lucide-react";
 import Event from "@/types/Event";
 import { useState, useRef } from "react";
 import { createEventSchema } from "@/schemas/event.schema";
@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/select";
 import { EVENT_CATEGORIES } from "@/constants/categories";
 import { ColorRing } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface CreateEventModalProps {
   onCreate: (newEvent: Omit<Event, "id">) => void;
@@ -46,6 +48,8 @@ export function CreateEventModal({
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   const resetForm = () => {
     setFormData({
@@ -125,6 +129,11 @@ export function CreateEventModal({
           variant="outline"
           size="lg"
           disabled={creating}
+          onClick={() => {
+            if (!isAuthenticated) {
+              navigate("/login");
+            }
+          }}
         >
           {creating ? (
             <>
@@ -139,8 +148,17 @@ export function CreateEventModal({
             </>
           ) : (
             <>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Event
+              {isAuthenticated && (
+                <>
+                  <Plus className="mr-2 h-4 w-4" /> Add Event
+                </>
+              )}
+              {!isAuthenticated && (
+                <>
+                  Login
+                  <LogIn className="mr-2 h-4 w-4" />
+                </>
+              )}
             </>
           )}
         </Button>

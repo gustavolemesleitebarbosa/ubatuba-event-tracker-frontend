@@ -17,7 +17,7 @@ function EventDetail() {
   useEffect(() => {
     const fetchEvent = async (id: string) => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}${id}`);
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}events/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch event");
         }

@@ -26,7 +26,7 @@ function Home() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}`);
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}events`);
       if (!response.ok) {
         throw new Error("Failed to fetch events");
       }
@@ -64,7 +64,7 @@ function Home() {
   const handleEdit = async (updatedEvent: Event) => {
     setUpdatingEventId(updatedEvent.id);
     try {
-      await fetch(`${import.meta.env.VITE_BASE_URL}${updatedEvent.id}`, {
+      await fetch(`${import.meta.env.VITE_BASE_URL}events/${updatedEvent.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ function Home() {
   const handleDelete = async (eventToDelete: Event) => {
     setDeletingEventId(eventToDelete.id);
     try {
-      await fetch(`${import.meta.env.VITE_BASE_URL}${eventToDelete.id}`, {
+      await fetch(`${import.meta.env.VITE_BASE_URL}events/${eventToDelete.id}`, {
         method: "DELETE",
         headers: {
         "Content-Type": "application/json",
@@ -100,7 +100,7 @@ function Home() {
 
   const handleCreate = async (newEvent: Omit<Event, "id">) => {
     setCreating(true);
-    await fetch(`${import.meta.env.VITE_BASE_URL}`, {
+    await fetch(`${import.meta.env.VITE_BASE_URL}events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
