@@ -12,6 +12,7 @@ import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, EventCategory } from "@/constants/categories";
 import { Img } from "react-image";
 import { getAuthHeaders } from "../utils/api";
+import { useAuth } from "@/contexts/AuthContext";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -24,6 +25,7 @@ function Home() {
   const [updatingEventId, setUpdatingEventId] = useState<string | null>(null);
   const [deletingEventId, setDeletingEventId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const fetchEvents = async () => {
     try {
@@ -65,19 +67,22 @@ function Home() {
   const handleEdit = async (updatedEvent: Event) => {
     setUpdatingEventId(updatedEvent.id);
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}events/${updatedEvent.id}`, {
-        method: "PUT",
-        headers: getAuthHeaders(),
-        body: JSON.stringify(updatedEvent),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}events/${updatedEvent.id}`,
+        {
+          method: "PUT",
+          headers: getAuthHeaders(),
+          body: JSON.stringify(updatedEvent),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to update event');
+        throw new Error("Failed to update event");
       }
 
       await fetchEvents();
       toast.success("Event updated successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to update event");
     } finally {
       setUpdatingEventId(null);
@@ -87,18 +92,21 @@ function Home() {
   const handleDelete = async (eventToDelete: Event) => {
     setDeletingEventId(eventToDelete.id);
     try {
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}events/${eventToDelete.id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BASE_URL}events/${eventToDelete.id}`,
+        {
+          method: "DELETE",
+          headers: getAuthHeaders(),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to delete event');
+        throw new Error("Failed to delete event");
       }
 
       await fetchEvents();
       toast.success("Event deleted successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete event");
     } finally {
       setDeletingEventId(null);
@@ -113,14 +121,14 @@ function Home() {
         headers: getAuthHeaders(),
         body: JSON.stringify(newEvent),
       });
-      
+
       if (!response.ok) {
-        throw new Error('Failed to create event');
+        throw new Error("Failed to create event");
       }
-      
+
       await fetchEvents();
       toast.success("Event created successfully!");
-    } catch (error) {
+    } catch {
       toast.error("Failed to create event");
     } finally {
       setCreating(false);
@@ -183,7 +191,12 @@ function Home() {
             <Card
               key={event.id}
               onClick={() => navigate(`/event/${event.id}`)}
-              className={`min-h-80 relative bg-slate-300 overflow-hidden pt-0 ${deletingEventId === event.id || updatingEventId === event.id ? 'pointer-events-none opacity-65' : ''}`}            >
+              className={`min-h-60 relative bg-slate-300 overflow-hidden pt-0 ${
+                deletingEventId === event.id || updatingEventId === event.id
+                  ? "pointer-events-none opacity-65"
+                  : ""
+              }`}
+            >
               <div className="w-full">
                 {event.image ? (
                   <Img
@@ -223,18 +236,20 @@ function Home() {
                 <p className="text-sm text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full">
                   {event.description}
                 </p>
-                <div className="w-full pt-6 justify-end ml-auto flex gap-3">
-                  <EditEventModal
-                    event={event}
-                    onSave={handleEdit}
-                    updating={updatingEventId === event.id}
-                  />
-                  <DeleteEventModal
-                    event={event}
-                    onDelete={() => handleDelete(event)}
-                    deleting={deletingEventId === event.id}
-                  />
-                </div>
+                {isAuthenticated && (
+                  <div className="w-full pt-6 justify-end ml-auto flex gap-3">
+                    <EditEventModal
+                      event={event}
+                      onSave={handleEdit}
+                      updating={updatingEventId === event.id}
+                    />
+                    <DeleteEventModal
+                      event={event}
+                      onDelete={() => handleDelete(event)}
+                      deleting={deletingEventId === event.id}
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           ))}
