@@ -125,7 +125,9 @@ export function CreateEventModal({
     <Dialog onOpenChange={(open) => !open && resetForm()}>
       <DialogTrigger asChild>
         <Button
-          className="fixed top-4 z-20 right-4 bg-slate-300 rounded-full"
+          className={` z-20  bg-slate-300 rounded-full ${
+            isAuthenticated ? "fixed bottom-4 bg-blue-700 text-white right-4" : "fixed top-4 right-4"
+          } `}
           variant="outline"
           size="lg"
           disabled={creating}

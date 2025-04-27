@@ -13,6 +13,7 @@ import { CategoryColors, EventCategory } from "@/constants/categories";
 import { Img } from "react-image";
 import { getAuthHeaders } from "../utils/api";
 import { useAuth } from "@/contexts/AuthContext";
+import { LogoutModal } from "../components/LogoutModal";
 
 function Home() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -190,8 +191,11 @@ function Home() {
             />
           </div>
         </div>
+        <div className="absolute top-4 right-4 z-20 flex gap-2">
+          <CreateEventModal onCreate={handleCreate} creating={creating} />
+          {isAuthenticated && <LogoutModal />}
+        </div>
         <div className="w-full container cursor-pointer md:mx-4 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <CreateEventModal creating={creating} onCreate={handleCreate} />
           {filteredEvents.map((event) => (
             <Card
               key={event.id}
