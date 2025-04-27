@@ -185,6 +185,7 @@ export function EditEventModal({
             <Label htmlFor="date">Data</Label>
             <Input
               id="date"
+              min={new Date().toISOString().slice(0, 16)}
               type="datetime-local"
               value={new Date(formData.date).toISOString().slice(0, 16)}
               onChange={(e) =>

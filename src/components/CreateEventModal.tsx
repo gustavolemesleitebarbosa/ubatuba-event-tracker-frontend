@@ -218,6 +218,7 @@ export function CreateEventModal({
               id="date"
               type="datetime-local"
               value={formData.date}
+              min={new Date().toISOString().slice(0, 16)}
               onChange={(e) =>
                 setFormData({ ...formData, date: e.target.value })
               }
