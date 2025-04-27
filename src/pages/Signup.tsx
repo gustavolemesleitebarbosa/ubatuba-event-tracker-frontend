@@ -45,7 +45,7 @@ export function Signup() {
       <Button
         onClick={() => navigate("/")}
         variant="outline"
-        className="absolute top-4 left-4 mb-6 bg-slate-100 w-fit"
+        className="absolute top-4 left-4 mb-6 text-white"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Voltar para os eventos

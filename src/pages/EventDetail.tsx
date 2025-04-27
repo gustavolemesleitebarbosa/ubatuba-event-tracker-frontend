@@ -71,7 +71,7 @@ function EventDetail() {
       <Button
         onClick={() => navigate("/")}
         variant="outline"
-        className="mb-6 bg-slate-100"
+        className="mb-6 text-white"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Voltar para os eventos
