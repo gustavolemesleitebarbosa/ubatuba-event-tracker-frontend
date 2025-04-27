@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -7,16 +7,21 @@ import {
   DialogTitle,
   DialogFooter,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Pencil } from "lucide-react"
-import Event from "@/types/Event"
-import { useState, useEffect } from "react"
-import { createEventSchema } from "@/schemas/event.schema"
-import { z } from "zod"
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
-import { EVENT_CATEGORIES } from "@/constants/categories"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Pencil } from "lucide-react";
+import Event from "@/types/Event";
+import { useState, useEffect } from "react";
+import { createEventSchema } from "@/schemas/event.schema";
+import { z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
+import { EVENT_CATEGORIES } from "@/constants/categories";
 
 interface EditEventModalProps {
   event: Event;
@@ -57,93 +62,141 @@ export function EditEventModal({ event, onSave }: EditEventModalProps) {
     if (isValid) {
       onSave(formData);
     }
+    resetForm();
+  };
+
+  const isFormFilled = () => {
+    return (
+      formData.title.trim() !== "" &&
+      formData.description.trim() !== "" &&
+      formData.location.trim() !== "" &&
+      formData.date.trim() !== ""
+    );
   };
 
   return (
     <Dialog onOpenChange={(open) => !open && resetForm()}>
       <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
-        <Button 
-          variant="outline" 
-          className="bg-slate-100 rounded-full" 
+        <Button
+          variant="outline"
+          className="bg-slate-100 rounded-full"
           size="icon"
           onClick={(e) => e.stopPropagation()}
         >
           <Pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent onClick={(e) => e.stopPropagation()} className="bg-slate-100 max-h-[80vh] overflow-y-auto">
+      <DialogContent
+        onClick={(e) => e.stopPropagation()}
+        className="bg-slate-100 max-h-[80vh] overflow-y-auto"
+      >
         <DialogHeader>
           <DialogTitle>Edit Event</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
             <Label htmlFor="title">Title</Label>
-            <Input 
-              id="title" 
+            <Input
+              id="title"
               value={formData.title}
-              onChange={(e) => setFormData({...formData, title: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
               className={errors.title ? "border-red-500" : ""}
             />
-            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+            {errors.title && (
+              <p className="text-red-500 text-sm">{errors.title}</p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="description">Description</Label>
-            <Input 
-              id="description" 
+            <Input
+              id="description"
               value={formData.description}
-              onChange={(e) => setFormData({...formData, description: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               className={errors.description ? "border-red-500" : ""}
             />
-            {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+            {errors.description && (
+              <p className="text-red-500 text-sm">{errors.description}</p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="location">Location</Label>
-            <Input 
-              id="location" 
+            <Input
+              id="location"
               value={formData.location}
-              onChange={(e) => setFormData({...formData, location: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
               className={errors.location ? "border-red-500" : ""}
             />
-            {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
+            {errors.location && (
+              <p className="text-red-500 text-sm">{errors.location}</p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="category">Category</Label>
-            <Select 
-              value={formData.category || undefined} 
-              onValueChange={(value) => setFormData({...formData, category: value})}
+            <Select
+              value={formData.category || undefined}
+              onValueChange={(value) =>
+                setFormData({ ...formData, category: value })
+              }
             >
-              <SelectTrigger className={errors.category ? "border-red-500" : ""}>
+              <SelectTrigger
+                className={errors.category ? "border-red-500" : ""}
+              >
                 <span>{formData.category || "Select a category"}</span>
               </SelectTrigger>
               <SelectContent>
                 {EVENT_CATEGORIES.map((category) => (
-                  <SelectItem className="bg-slate-100 border-slate-300 border-b-[1px]" key={category} value={category}>
+                  <SelectItem
+                    className="bg-slate-100 border-slate-300 border-b-[1px]"
+                    key={category}
+                    value={category}
+                  >
                     {category}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
+            {errors.category && (
+              <p className="text-red-500 text-sm">{errors.category}</p>
+            )}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
-            <Input 
-              id="date" 
-              type="datetime-local" 
+            <Input
+              id="date"
+              type="datetime-local"
               value={new Date(formData.date).toISOString().slice(0, 16)}
-              onChange={(e) => setFormData({...formData, date: e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, date: e.target.value })
+              }
               className={errors.date ? "border-red-500" : ""}
             />
-            {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+            {errors.date && (
+              <p className="text-red-500 text-sm">{errors.date}</p>
+            )}
           </div>
         </div>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button onClick={handleSave}>Save changes</Button>
+          <DialogClose asChild>
+            <Button
+              variant="outline"
+              className="bg-green-200"
+              disabled={!isFormFilled()}
+              onClick={handleSave}
+            >
+              Save changes
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
-} 
+  );
+}
