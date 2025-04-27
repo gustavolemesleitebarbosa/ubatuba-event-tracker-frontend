@@ -41,7 +41,7 @@ export function Signup() {
   };
 
   return (
-    <div className="h-screen relative flex items-center justify-center w-screen bg-gradient-to-r from-[#251ee9]  to-[#3b70c4]  flex-col p-4">
+    <div className="h-screen relative flex items-center justify-center w-screen flex-col p-4">
       <Button
         onClick={() => navigate("/")}
         variant="outline"

@@ -6,8 +6,9 @@ import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 
 function App() {
-
   return (
+    <>
+      <div className="fixed inset-0 bg-gradient-to-r from-[#251ee9] to-[#3b70c4] -z-10" />
       <AuthProvider>
         <BrowserRouter>
           <Routes>
@@ -18,6 +19,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
+    </>
   );
 }
 

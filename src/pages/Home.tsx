@@ -168,7 +168,7 @@ function Home() {
   return (
     <>
       <Toaster />
-      <div className="min-h-screen w-full bg-gradient-to-r from-[#251ee9]  to-[#3b70c4] p-12">
+      <div className="min-h-screen bg-fixed w-full bg-gradient-to-r from-[#251ee9]  to-[#3b70c4] p-12">
         <img
           src="/images/logo_header.png"
           alt="logo"
