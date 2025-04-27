@@ -41,85 +41,87 @@ export function Signup() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#d5d5d5] flex flex-col p-4">
+    <div className="h-screen relative flex items-center justify-center w-screen bg-gradient-to-r from-[#251ee9]  to-[#3b70c4]  flex-col p-4">
       <Button
         onClick={() => navigate("/")}
         variant="outline"
-        className="mb-6 bg-slate-100 w-fit"
+        className="absolute top-4 left-4 mb-6 bg-slate-100 w-fit"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Events
       </Button>
-
-      <div className="flex-1 flex items-center justify-center">
-        <Card className="w-full max-w-md bg-slate-100">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Create Account</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSignup} className="space-y-4">
-              {errors.form && (
-                <p className="text-red-500 text-sm text-center">{errors.form}</p>
+      <img
+        src="/images/logo_header.png"
+        alt="logo"
+        className="w-1/3 md:w-1/6 mx-auto mb-8 "
+      />
+      <Card className="w-full max-w-md mx-auto  bg-slate-100">
+        <CardHeader>
+          <CardTitle className="text-2xl text-center">Create Account</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSignup} className="space-y-4">
+            {errors.form && (
+              <p className="text-red-500 text-sm text-center">{errors.form}</p>
+            )}
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={errors.email ? "border-red-500" : ""}
+                required
+              />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email}</p>
               )}
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={errors.email ? "border-red-500" : ""}
-                  required
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm">{errors.email}</p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className={errors.password ? "border-red-500" : ""}
-                  required
-                />
-                {errors.password && (
-                  <p className="text-red-500 text-sm">{errors.password}</p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={errors.confirmPassword ? "border-red-500" : ""}
-                  required
-                />
-                {errors.confirmPassword && (
-                  <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
-                )}
-              </div>
-              <div className="space-y-4">
-                <Button type="submit" variant="outline" className="w-full">
-                  Create Account
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full bg-slate-200"
-                  onClick={() => navigate("/login")}
-                >
-                  Back to Login
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={errors.password ? "border-red-500" : ""}
+                required
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className={errors.confirmPassword ? "border-red-500" : ""}
+                required
+              />
+              {errors.confirmPassword && (
+                <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+              )}
+            </div>
+            <div className="space-y-4">
+              <Button type="submit" variant="outline" className="w-full">
+                Create Account
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full bg-slate-200"
+                onClick={() => navigate("/login")}
+              >
+                Back to Login
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
-} 
+}

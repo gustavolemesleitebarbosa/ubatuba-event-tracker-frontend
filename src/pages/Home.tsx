@@ -163,7 +163,12 @@ function Home() {
   return (
     <>
       <Toaster />
-      <div className="min-h-screen w-full bg-[##234683] p-12">
+      <div className="min-h-screen w-full bg-gradient-to-r from-[#251ee9]  to-[#3b70c4] p-12">
+        <img
+          src="/images/logo_header.png"
+          alt="logo"
+          className="w-1/3 md:w-1/6 mx-auto mb-4 "
+        />
         <h1
           style={{ fontFamily: "'Original Surfer', cursive", fontWeight: 900 }}
           className="md:text-3xl text-md  flex justify-center font-bold mb-4 md:mt-2 mt-5 text-yellow-50"

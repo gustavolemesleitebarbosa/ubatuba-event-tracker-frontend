@@ -67,7 +67,7 @@ function EventDetail() {
     );
 
   return (
-    <div className="min-h-screen w-full bg-[#234683] p-6 md:p-12">
+    <div className="min-h-screen w-full bg-gradient-to-r from-[#251ee9]  to-[#3b70c4] p-6 md:p-12">
       <Button
         onClick={() => navigate("/")}
         variant="outline"
