@@ -143,6 +143,11 @@ function Home() {
   if (loading)
     return (
       <div className="flex flex-col justify-center items-center h-screen w-full">
+        <img
+          src="/images/logo_header.png"
+          alt="logo"
+          className="w-1/3 md:w-1/6 mx-auto mb-4 "
+        />
         <h1 className="text-yellow-50 text-2xl mb-6 font-bold">
           Carregando eventos em Ubatuba!
         </h1>
@@ -168,7 +173,7 @@ function Home() {
   return (
     <>
       <Toaster />
-      <div className="min-h-screen bg-fixed w-full bg-gradient-to-r from-[#251ee9]  to-[#3b70c4] p-12">
+      <div className="min-h-screen bg-fixed w-full p-12">
         <img
           src="/images/logo_header.png"
           alt="logo"

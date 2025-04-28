@@ -37,6 +37,11 @@ function EventDetail() {
   if (loading)
     return (
       <div className="flex flex-col justify-center items-center h-screen w-full">
+        <img
+          src="/images/logo_header.png"
+          alt="logo"
+          className="w-1/3 md:w-1/6 mx-auto mb-4 "
+        />
         <h1 className="text-yellow-50 text-2xl font-bold mb-6">
           Carregando evento...
         </h1>

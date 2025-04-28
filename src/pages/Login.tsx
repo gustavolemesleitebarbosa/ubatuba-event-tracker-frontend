@@ -54,9 +54,9 @@ export function Login() {
         alt="logo"
         className="w-1/3 md:w-1/6 mx-auto mb-8 "
       />
-      <Card className="w-full max-w-md mx-auto  bg-slate-100">
+      <Card className="w-full max-w-md mx-auto ">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Entrar</CardTitle>
+          <CardTitle className="text-2xl text-center text-slate-100">Entrar</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
@@ -64,13 +64,14 @@ export function Login() {
               <p className="text-red-500 text-sm text-center">{errors.form}</p>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-slate-100">Email</Label>
               <Input
                 id="email"
                 type="email"
+                placeholder="exemplo@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={errors.email ? "border-red-500" : ""}
+                className={errors.email ? "border-red-500 text-slate-100" : "text-slate-100"}
                 required
               />
               {errors.email && (
@@ -78,13 +79,14 @@ export function Login() {
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
+              <Label htmlFor="password" className="text-slate-100">Senha</Label>
               <Input
                 id="password"
                 type="password"
+                placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={errors.password ? "border-red-500" : ""}
+                className={errors.password ? "border-red-500 text-slate-100" : "text-slate-100"}
                 required
               />
               {errors.password && (
@@ -92,13 +94,13 @@ export function Login() {
               )}
             </div>
             <div className="space-y-4">
-              <Button type="submit" variant="outline" className="w-full">
+              <Button type="submit" variant="outline" className="w-full bg-slate-100 text-slate-900">
                 Entrar
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                className="bg-slate-200 w-full"
+                className="bg-slate-200 w-full text-slate-900"
                 onClick={() => navigate("/signup")}
               >
                 Criar conta
