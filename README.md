@@ -220,3 +220,41 @@ src/
 - Events are displayed in chronological order
 - The application requires a modern browser with JavaScript enabled
 - API endpoints must be configured through environment variables
+
+## Testing
+
+The project uses Vitest and React Testing Library for testing. The test suite covers components and pages with unit and integration tests.
+
+### Running Tests
+
+```bash
+npm test
+```
+
+or
+
+```bash
+yarn test
+```
+or
+
+
+```bash
+pnpm test
+```
+
+### Test Structure
+
+The tests are organized by component/page and follow these patterns:
+
+1. **Component Setup**
+   - Mock external dependencies (AuthContext, React Router)
+   - Define test data
+   - Create render helper with providers
+
+2. **Common Test Cases**
+   - Initial rendering
+   - Loading states
+   - Error handling
+   - User interactions
+   - Authentication-dependent UI elements
