@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { MapPin, Pin, Search } from "lucide-react";
+import { MapPin, Search } from "lucide-react";
 import { DeleteEventModal } from "../components/DeleteEventModal";
 import { EditEventModal } from "../components/EditEventModal";
 import Event from "../types/Event";

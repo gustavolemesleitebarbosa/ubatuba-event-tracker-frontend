@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Event from "../types/Event";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MapPin, Pin } from "lucide-react";
+import { ArrowLeft, MapPin } from "lucide-react";
 import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, CategoryTranslations, EventCategory } from "@/constants/categories";
 
