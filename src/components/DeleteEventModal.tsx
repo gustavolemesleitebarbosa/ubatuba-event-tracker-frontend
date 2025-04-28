@@ -33,6 +33,7 @@ export function DeleteEventModal({
     <Dialog>
       <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
         <Button
+          data-testid="delete-button"
           variant="outline"
           className="bg-slate-100 rounded-full"
           size="icon"
@@ -67,6 +68,7 @@ export function DeleteEventModal({
           </DialogClose>
           <DialogClose asChild>
             <Button
+              data-testid="confirm-delete-button"
               variant="destructive"
               className="bg-red-500"
               onClick={handleDelete}

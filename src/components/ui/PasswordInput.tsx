@@ -31,6 +31,7 @@ export function PasswordInput({
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
         value={value}
+        data-testid="password-input"
         onChange={onChange}
         className={`${error ? "border-red-500" : ""} pr-10 text-slate-100 ${className}`}
         required={required}

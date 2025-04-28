@@ -84,6 +84,7 @@ export function EditEventModal({
     <Dialog onOpenChange={(open) => !open && resetForm()}>
       <DialogTrigger onClick={(e) => e.stopPropagation()} asChild>
         <Button
+          data-testid="edit-button"
           variant="outline"
           className="bg-slate-100 rounded-full"
           size="icon"
@@ -114,6 +115,7 @@ export function EditEventModal({
             <Label htmlFor="title">Título</Label>
             <Input
               id="title"
+              data-testid="edit-title-input"
               value={formData.title}
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
@@ -128,6 +130,7 @@ export function EditEventModal({
             <Label htmlFor="description">Descrição</Label>
             <Input
               id="description"
+              data-testid="edit-description-input"
               value={formData.description}
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
@@ -142,6 +145,7 @@ export function EditEventModal({
             <Label htmlFor="location">Local</Label>
             <Input
               id="location"
+              data-testid="edit-location-input"
               value={formData.location}
               onChange={(e) =>
                 setFormData({ ...formData, location: e.target.value })
@@ -185,6 +189,7 @@ export function EditEventModal({
             <Label htmlFor="date">Data</Label>
             <Input
               id="date"
+              data-testid="edit-date-input"
               min={new Date().toISOString().slice(0, 16)}
               type="datetime-local"
               value={new Date(formData.date).toISOString().slice(0, 16)}
@@ -204,6 +209,7 @@ export function EditEventModal({
           </DialogClose>
           <DialogClose asChild>
             <Button
+              data-testid="save-event-button"
               variant="outline"
               className="bg-green-200"
               disabled={!isFormFilled()}

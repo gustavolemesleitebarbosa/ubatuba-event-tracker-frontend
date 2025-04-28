@@ -118,6 +118,7 @@ function EventDetail() {
           <div>
             <p className="text-lg break-words font-semibold text-gray-700">
               {new Date(event.date).toLocaleDateString("pt-BR", {
+                timeZone: "UTC",
                 weekday: "long",
                 year: "numeric",
                 month: "long",

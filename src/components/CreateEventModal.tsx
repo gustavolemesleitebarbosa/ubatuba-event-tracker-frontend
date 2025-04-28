@@ -131,6 +131,7 @@ export function CreateEventModal({
           } `}
           variant="outline"
           size="lg"
+          data-testid="open-button"
           disabled={creating}
           onClick={() => {
             if (!isAuthenticated) {
@@ -175,6 +176,7 @@ export function CreateEventModal({
             <Label htmlFor="title">Título</Label>
             <Input
               id="title"
+              data-testid="title-input"
               value={formData.title}
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
@@ -190,6 +192,7 @@ export function CreateEventModal({
             <div className="relative">
               <Input
                 id="description"
+                data-testid="description-input"
                 value={formData.description}
                 onChange={(e) => {
                   const newValue = e.target.value;
@@ -211,6 +214,7 @@ export function CreateEventModal({
             <Label htmlFor="location">Local</Label>
             <Input
               id="location"
+              data-testid="location-input"
               value={formData.location}
               onChange={(e) =>
                 setFormData({ ...formData, location: e.target.value })
@@ -227,6 +231,7 @@ export function CreateEventModal({
               id="date"
               type="datetime-local"
               value={formData.date}
+              data-testid="date-input"
               min={new Date().toISOString().slice(0, 16)}
               onChange={(e) =>
                 setFormData({ ...formData, date: e.target.value })
@@ -301,6 +306,7 @@ export function CreateEventModal({
           </DialogClose>
           <DialogClose asChild>
             <Button
+              data-testid="create-event-button"
               variant="outline"
               className="bg-green-200"
               disabled={!isFormFilled()}

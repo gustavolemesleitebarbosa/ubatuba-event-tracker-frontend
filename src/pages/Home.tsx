@@ -152,13 +152,17 @@ function Home() {
           Carregando eventos em Ubatuba!
         </h1>
         <ThreeCircles
-          visible={true}
+          data-testid="loading-spinner"
           height="100"
           width="100"
-          color="#06f3bc"
-          ariaLabel="three-circles-loading"
+          color="#4fa94d"
           wrapperStyle={{}}
           wrapperClass=""
+          visible={true}
+          ariaLabel="three-circles-rotating"
+          outerCircleColor=""
+          innerCircleColor=""
+          middleCircleColor=""
         />
       </div>
     );
@@ -252,6 +256,7 @@ function Home() {
                   <b>
                     {" "}
                     {new Date(event.date).toLocaleDateString("pt-BR", {
+                      timeZone: "UTC",
                       weekday: "long",
                       year: "numeric",
                       month: "long",
