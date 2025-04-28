@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { loginSchema } from "@/schemas/auth.schema";
 import { z } from "zod";
+import { PasswordInput } from "@/components/ui/PasswordInput";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -80,10 +81,8 @@ export function Login() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password" className="text-slate-100">Senha</Label>
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
-                placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className={errors.password ? "border-red-500 text-slate-100" : "text-slate-100"}
