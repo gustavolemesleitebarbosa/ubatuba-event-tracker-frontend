@@ -116,6 +116,7 @@ export function CreateEventModal({
     return (
       formData.title.trim() !== "" &&
       formData.description.trim() !== "" &&
+      formData.description.length <= 500 &&
       formData.location.trim() !== "" &&
       formData.date.trim() !== ""
     );
@@ -186,16 +187,24 @@ export function CreateEventModal({
           </div>
           <div className="grid gap-2">
             <Label htmlFor="description">Descrição</Label>
-            <Input
-              id="description"
-              value={formData.description}
-              onChange={(e) =>
-                setFormData({ ...formData, description: e.target.value })
-              }
-              className={errors.description ? "border-red-500" : ""}
-            />
+            <div className="relative">
+              <Input
+                id="description"
+                value={formData.description}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  setFormData({ ...formData, description: newValue });
+                }}
+                className={errors.description ? "border-red-500" : ""}
+              />
+              <div className={`absolute right-2 -bottom-6 text-xs ${
+                formData.description.length > 500 ? "text-red-500" : "text-gray-500"
+              }`}>
+                {formData.description.length}/500
+              </div>
+            </div>
             {errors.description && (
-              <p className="text-red-500 text-sm">{errors.description}</p>
+              <p className="text-red-500 text-sm mt-6">{errors.description}</p>
             )}
           </div>
           <div className="grid gap-2">

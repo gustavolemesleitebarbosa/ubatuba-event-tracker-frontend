@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Search } from "lucide-react";
+import { MapPin, Pin, Search } from "lucide-react";
 import { DeleteEventModal } from "../components/DeleteEventModal";
 import { EditEventModal } from "../components/EditEventModal";
 import Event from "../types/Event";
@@ -259,8 +259,9 @@ function Home() {
                     })}
                   </b>{" "}
                 </p>
-                <p className="mt-2 text-sm pt-6 text-gray-600">
+                <p className="mt-2 text-sm pt-6 text-gray-600 flex items-center gap-1">
                   {" "}
+                  <MapPin className="w-4 h-4" />
                   Local: <b>{event.location}</b>{" "}
                 </p>
                 <p className="text-sm text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis max-w-full">
@@ -286,9 +287,12 @@ function Home() {
         </div>
         {filteredEvents.length === 0 && (
           <div className="flex justify-center items-center w-full">
-            <h1 className="text-yellow-50 text-2xl font-bold">
+            <h1 className="text-yellow-50 md:text-2xl text-md font-bold">
               {" "}
-              Nenhum evento encontrado para esta busca 😢
+              {events.length > 0
+                ? "Nenhum evento encontrado para esta busca 😢"
+                : "Nenhum evento encontrado, seja o primeiro a criar um evento!"
+                }
             </h1>
           </div>
         )}

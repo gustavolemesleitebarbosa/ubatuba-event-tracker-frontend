@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Event from "../types/Event";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MapPin, Pin } from "lucide-react";
 import { ThreeCircles } from "react-loader-spinner";
 import { CategoryColors, CategoryTranslations, EventCategory } from "@/constants/categories";
 
@@ -128,8 +128,8 @@ function EventDetail() {
             </p>
           </div>
           <div>
-            <h2 className="text-xl font-semibold mb-2">Local</h2>
-            <p className="text-gray-700 break-words">{event.location}</p>
+            <h2 className="text-xl font-semibold mb-2"> Local</h2>
+            <p className="text-gray-700 break-words flex items-center gap-1 text-md"> <MapPin className="w-4 h-4" />{event.location}</p>
           </div>
 
           <div>
